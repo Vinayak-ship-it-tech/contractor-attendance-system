@@ -10,11 +10,10 @@ export default defineConfig({
       manifest: {
         name: "Contractor Attendance System",
         short_name: "Attendance",
-        description: "Worker attendance and salary management system",
-        theme_color: "#111827",
-        background_color: "#ffffff",
         display: "standalone",
         start_url: "/",
+        theme_color: "#111827",
+        background_color: "#ffffff",
         icons: [
           {
             src: "/favicon.svg",
@@ -25,7 +24,6 @@ export default defineConfig({
       }
     })
   ],
-
   server: {
     proxy: {
       "/api": {
