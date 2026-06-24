@@ -1,0 +1,408 @@
+.sidebar {
+  width: 285px;
+  height: 100vh;
+  position: fixed;
+  inset: 0 auto 0 0;
+  background: #0b1220;
+  border-right: 1px solid #1e293b;
+  display: flex;
+  flex-direction: column;
+  z-index: 999;
+}
+
+.brand {
+  height: 92px;
+  padding: 22px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid #1e293b;
+}
+
+.brand-logo {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: #2563eb;
+  color: white;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.brand h2 {
+  margin: 0;
+  color: white;
+  font-size: 14px;
+  letter-spacing: 0.7px;
+}
+
+.brand p {
+  margin: 4px 0 0;
+  color: #94a3b8;
+  font-size: 12px;
+  letter-spacing: 1.8px;
+}
+
+
+
+.menu a,
+.menu button {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 14px;
+  margin-bottom: 6px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.22s ease;
+}
+
+.menu button {
+  justify-content: space-between;
+}
+
+.menu button span {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.menu a:hover,
+.menu button:hover,
+.menu a.active {
+  background: #111c31;
+  color: #ffffff;
+}
+
+.menu a.active {
+  box-shadow: inset 4px 0 0 #2563eb;
+}
+
+.submenu {
+  margin: 4px 0 12px 34px;
+  padding-left: 12px;
+  border-left: 1px solid #26364f;
+}
+
+.submenu a {
+  min-height: 34px;
+  font-size: 13px;
+  margin-bottom: 4px;
+  color: #94a3b8;
+}
+
+.submenu a:hover,
+.submenu a.active {
+  background: #132036;
+  color: #ffffff;
+}
+
+.admin-footer {
+  margin: 14px;
+  padding: 14px;
+  border-radius: 16px;
+  background: #111c31;
+  border: 1px solid #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.admin-footer strong {
+  color: white !important;
+  -webkit-text-fill-color: white !important;
+  font-size: 14px;
+}
+
+.admin-footer p {
+  margin: 4px 0 0;
+  color: #94a3b8 !important;
+  -webkit-text-fill-color: #94a3b8 !important;
+  font-size: 12px;
+}
+
+.admin-footer button {
+  min-width: 44px !important;
+  width: 44px !important;
+  height: 44px !important;
+
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 14px !important;
+
+  background: linear-gradient(135deg, #dc2626, #ef4444) !important;
+
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+
+  font-size: 18px !important;
+  font-weight: 900 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+
+  cursor: pointer !important;
+
+  box-shadow: 0 10px 25px rgba(239, 68, 68, 0.35) !important;
+  transition: all 0.25s ease;
+}
+
+.admin-footer button:hover {
+  background: linear-gradient(135deg, #b91c1c, #dc2626) !important;
+  transform: translateY(-2px);
+}
+
+.admin-footer button,
+.admin-footer button * {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+/* ===== PREMIUM HOVER EFFECTS ===== */
+
+.menu a,
+.menu button {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Beautiful hover animation */
+.menu a:hover,
+.menu button:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(37,99,235,0.20),
+    rgba(6,182,212,0.12)
+  );
+
+  color: white;
+
+  transform: translateX(8px);
+
+  box-shadow:
+    0 10px 25px rgba(37,99,235,0.25);
+
+  border-left: 4px solid #38bdf8;
+}
+
+/* Moving shine effect */
+.menu a::before,
+.menu button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.15),
+    transparent
+  );
+  transform: skewX(-25deg);
+}
+
+.menu a:hover::before,
+.menu button:hover::before {
+  animation: shine 0.8s ease;
+}
+
+@keyframes shine {
+  from {
+    left: -120%;
+  }
+  to {
+    left: 150%;
+  }
+}
+
+/* Active menu style */
+.menu a.active {
+  background: linear-gradient(
+    90deg,
+    rgba(37,99,235,0.25),
+    rgba(6,182,212,0.15)
+  );
+
+  color: white;
+
+  border-left: 4px solid #38bdf8;
+
+  box-shadow:
+    0 8px 20px rgba(37,99,235,0.2);
+}
+
+/* Submenu hover */
+.submenu a:hover {
+  background: rgba(56,189,248,0.12);
+
+  color: white;
+
+  transform: translateX(6px);
+
+  box-shadow:
+    0 6px 15px rgba(56,189,248,0.15);
+}
+
+/* Sidebar glow */
+.sidebar {
+  box-shadow:
+    8px 0 30px rgba(2,6,23,0.45),
+    0 0 40px rgba(37,99,235,0.08);
+}
+
+/* ===== TOP BRAND CARD HOVER EFFECT ===== */
+
+.brand {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s ease;
+}
+
+.brand:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(37, 99, 235, 0.22),
+    rgba(6, 182, 212, 0.12)
+  );
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.28);
+}
+
+.brand::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.18),
+    transparent
+  );
+  transform: skewX(-25deg);
+}
+
+.brand:hover::before {
+  animation: brandShine 0.8s ease;
+}
+
+@keyframes brandShine {
+  from {
+    left: -120%;
+  }
+  to {
+    left: 150%;
+  }
+}
+
+.brand-logo {
+  transition: all 0.35s ease;
+}
+
+.brand:hover .brand-logo {
+  transform: scale(1.08) rotate(3deg);
+  box-shadow: 0 0 22px rgba(56, 189, 248, 0.55);
+}
+
+/* ===== SLOW SUBMENU OPEN EFFECT ===== */
+
+.submenu {
+  animation: submenuOpen 0.45s ease;
+  transform-origin: top;
+}
+
+@keyframes submenuOpen {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scaleY(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+.submenu a {
+  animation: submenuItemFade 0.35s ease;
+}
+
+@keyframes submenuItemFade {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.submenu {
+  animation: submenuSlide 0.35s ease;
+}
+
+@keyframes submenuSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+    max-height: 0;
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 500px;
+  }
+}
+
+.brand::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.12),
+    transparent
+  );
+  transform: translateX(-120%);
+}
+
+.brand:hover::after {
+  animation: brandShine 0.8s ease;
+}
+
+@keyframes brandShine {
+  to {
+    transform: translateX(120%);
+  }
+}
+
+.badge {
+  margin-left: auto;
+  background: #ef4444;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 600;
+}

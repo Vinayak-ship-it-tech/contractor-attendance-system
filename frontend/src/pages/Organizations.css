@@ -1,0 +1,74 @@
+.org-page {
+  padding: 25px;
+}
+
+.org-page h1 {
+  margin-bottom: 20px;
+}
+
+.org-form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.org-form input {
+  padding: 12px;
+  width: 300px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.org-form button,
+.org-actions button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: #64748b !important;
+}
+
+.org-list {
+  display: grid;
+  gap: 15px;
+}
+
+.org-card {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  color: #000000;
+}
+
+.org-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.delete-btn {
+  background: #dc2626 !important;
+}
+
+.org-card h3 {
+  color: #000000;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.org-page {
+  color: #000000;
+}
+
+.org-list {
+  color: #000000;
+}

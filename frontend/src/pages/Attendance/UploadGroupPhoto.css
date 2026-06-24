@@ -1,0 +1,219 @@
+.upload-page {
+  padding: 30px;
+  color: #0f172a;
+}
+
+.upload-page h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.upload-page p {
+  color: #64748b;
+  margin-top: 8px;
+  margin-bottom: 25px;
+}
+
+.upload-card,
+.result-card {
+  background: white;
+  padding: 28px;
+  border-radius: 22px;
+  box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
+  max-width: 600px;
+  margin-bottom: 25px;
+}
+
+.upload-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.upload-card label {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.upload-card input {
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  outline: none;
+  color: #0f172a;
+}
+
+.upload-card button {
+  margin-top: 10px;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  background: #2563eb;
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.upload-card button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.result-card h2 {
+  color: #0f172a;
+  margin-bottom: 15px;
+}
+
+.result-card p {
+  color: #334155;
+  margin-bottom: 10px;
+}
+
+.result-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.result-summary div {
+  background: #f8fafc;
+  padding: 18px;
+  border-radius: 16px;
+  text-align: center;
+  border: 1px solid #e2e8f0;
+}
+
+.result-summary h3 {
+  color: #2563eb;
+  font-size: 28px;
+}
+
+.result-summary p {
+  margin: 5px 0 0;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.section-title {
+  color: #0f172a;
+  margin: 25px 0 15px;
+}
+
+.matched-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.matched-item {
+  background: #dcfce7;
+  color: #15803d;
+  padding: 12px 15px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+.unknown-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 15px;
+}
+
+.unknown-card {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-radius: 16px;
+  padding: 14px;
+  text-align: center;
+}
+
+.unknown-card img {
+  width: 90px;
+  height: 90px;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.unknown-card p {
+  color: #9a3412;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.unknown-card button {
+  border: none;
+  background: #f97316;
+  color: white;
+  padding: 9px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+@media (max-width: 700px) {
+  .result-summary {
+    grid-template-columns: 1fr;
+  }
+}
+
+.register-unknown-card {
+  background: white;
+  padding: 28px;
+  border-radius: 22px;
+  box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
+  max-width: 600px;
+  margin-top: 25px;
+}
+
+.register-unknown-card h2 {
+  color: #0f172a;
+  margin-bottom: 20px;
+}
+
+.selected-unknown-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 18px;
+  object-fit: cover;
+  margin-bottom: 20px;
+  border: 3px solid #fed7aa;
+}
+
+.register-unknown-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.register-unknown-card input,
+.register-unknown-card select {
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  outline: none;
+  color: #0f172a;
+  background: white;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.form-actions button {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: #2563eb;
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: #64748b !important;
+}

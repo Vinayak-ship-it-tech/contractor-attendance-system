@@ -1,0 +1,30 @@
+.chat-card {
+  max-width: 800px;
+}
+
+.chat-box {
+  height: 400px;
+  overflow-y: auto;
+  background: #f8fafc;
+  padding: 18px;
+  border-radius: 16px;
+  margin-bottom: 15px;
+}
+
+.user-msg {
+  background: #2563eb;
+  color: white;
+  padding: 12px 15px;
+  border-radius: 14px;
+  margin: 10px 0 10px auto;
+  max-width: 70%;
+}
+
+.bot-msg {
+  background: white;
+  color: #0f172a;
+  padding: 12px 15px;
+  border-radius: 14px;
+  margin: 10px auto 10px 0;
+  max-width: 70%;
+}

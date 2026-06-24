@@ -1,0 +1,63 @@
+.add-site-page {
+  padding: 30px;
+  color: #0f172a;
+}
+
+.add-site-page h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.add-site-page p {
+  color: #64748b;
+  margin-top: 8px;
+  margin-bottom: 25px;
+}
+
+.add-site-card {
+  max-width: 650px;
+  background: white;
+  padding: 30px;
+  border-radius: 22px;
+  box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
+}
+
+.add-site-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.add-site-card label {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.add-site-card input,
+.add-site-card select,
+.add-site-card textarea {
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  outline: none;
+  color: #0f172a;
+  background: white;
+  font-size: 15px;
+}
+
+.add-site-card textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.add-site-card button {
+  margin-top: 12px;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  background: #2563eb;
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+}

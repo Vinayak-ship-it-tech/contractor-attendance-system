@@ -1,0 +1,131 @@
+/* ===================================
+   GLOBAL SCROLL FIX
+=================================== */
+
+html,
+body,
+#root {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    scroll-behavior: smooth;
+
+    /* Firefox */
+    scrollbar-width: none;
+}
+
+/* Chrome, Edge, Safari */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+#root::-webkit-scrollbar {
+    display: none;
+}
+
+/* ===================================
+   APP LAYOUT
+=================================== */
+
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ===================================
+   SIDEBAR
+=================================== */
+
+.sidebar {
+    width: 285px;
+    height: 100vh;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    background: #0b1220;
+    border-right: 1px solid #1e293b;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    z-index: 1000;
+
+    /* Hide scrollbar */
+    scrollbar-width: none;
+}
+
+.sidebar::-webkit-scrollbar {
+    display: none;
+}
+
+/* ===================================
+   MAIN CONTENT
+=================================== */
+
+.main-content {
+    margin-left: 285px;
+
+    min-height: 100vh;
+    width: calc(100% - 285px);
+
+    padding: 30px;
+
+    overflow-x: hidden;
+    overflow-y: visible;
+
+    scrollbar-width: none;
+}
+
+.main-content::-webkit-scrollbar {
+    display: none;
+}
+
+/* ===================================
+   BRAND SECTION
+=================================== */
+
+.brand {
+    min-height: 95px;
+
+    padding: 20px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    flex-shrink: 0;
+
+    border-bottom: 1px solid #1e293b;
+}
+
+.brand-logo {
+    width: 46px;
+    height: 46px;
+
+    border-radius: 12px;
+
+    background: #2563eb;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 800;
+}
+
+.brand h2 {
+    color: white;
+    margin: 0;
+
+    font-size: 14px;
+    line-height: 1.4;
+}

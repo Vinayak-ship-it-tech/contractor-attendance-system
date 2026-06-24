@@ -1,0 +1,65 @@
+.offline-page {
+  padding: 30px;
+}
+
+.offline-card {
+  background: white;
+  padding: 25px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.offline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.sync-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.sync-btn:hover {
+  background: #1d4ed8;
+}
+
+.offline-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.offline-table th {
+  background: #f1f5f9;
+  padding: 14px;
+  text-align: left;
+}
+
+.offline-table td {
+  padding: 14px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.empty-text {
+  text-align: center;
+  color: #64748b;
+}
+
+.delete-btn {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #b91c1c;
+}
