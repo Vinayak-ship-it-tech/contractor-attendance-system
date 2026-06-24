@@ -41,6 +41,7 @@ import AttendanceAnomalies from "./pages/AttendanceAnomalies";
 import DashboardAnalysis from "./pages/DashboardAnalysis";
 import OfflineAttendance from "./pages/OfflineAttendance";
 import { syncOfflineAttendance } from "./utils/offlineAttendance";
+import WorkerMobileApp from "./mobile/WorkerMobileApp";
 
 import ProtectedRoute from "./pages/ProtectedRoute";
 import "./style.css";
@@ -111,6 +112,7 @@ function App() {
         <Route path="/anomalies" element={<Secure><AttendanceAnomalies /></Secure>} />
         <Route path="/dashboard-analysis" element={<Secure><DashboardAnalysis /></Secure>} />
         <Route path="/offline-attendance" element={<Secure><OfflineAttendance /></Secure>} />
+        <Route path="/worker-app" element={<WorkerMobileApp />} />
       </Routes>
     </BrowserRouter>
   );

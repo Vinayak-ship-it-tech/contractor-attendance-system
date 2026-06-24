@@ -198,8 +198,21 @@ function WorkerList() {
               <button onClick={() => toggleStatus(worker.id)}>
                 {worker.is_active ? "Deactivate" : "Activate"}
               </button>
+                
 
-              <button onClick={() => deleteWorker(worker.id)}>Delete</button>
+              <button onClick={() => deleteWorker(worker.id)}>
+                Delete
+              </button>
+
+              <a
+                href={`${API.defaults.baseURL}workers/${worker.id}/id-card/`}
+                target="_blank"
+                rel="noreferrer"
+                className="id-card-btn"
+              >
+                Download ID Card
+              </a>
+              
             </div>
           ))}
         </div>

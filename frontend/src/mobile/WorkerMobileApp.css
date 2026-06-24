@@ -1,0 +1,70 @@
+.mobile-app {
+  min-height: 100vh;
+  background: #f1f5f9;
+  padding: 16px;
+  font-family: Arial, sans-serif;
+}
+
+.mobile-header {
+  background: linear-gradient(135deg, #1e3a8a, #2563eb);
+  color: white;
+  padding: 22px;
+  border-radius: 18px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.mobile-card {
+  background: white;
+  padding: 18px;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.mobile-card input {
+  width: 100%;
+  padding: 13px;
+  margin: 10px 0;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+}
+
+.mobile-card button,
+.mobile-actions button,
+.id-btn {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 12px;
+  background: #2563eb;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+}
+
+.mobile-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.profile-card {
+  text-align: center;
+}
+
+.profile-card img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.attendance-row {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 10px 0;
+}
