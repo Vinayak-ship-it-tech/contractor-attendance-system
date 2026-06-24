@@ -181,7 +181,7 @@ function Dashboard() {
           <div className="quick-icon">📊</div>
           <h3>Reports & Analytics</h3>
           <p>Generate attendance, salary and performance reports.</p>
-          </Link>
+        </Link>
 
         <Link to="/attendance" className="quick-card">
           <div className="quick-icon">✅</div>
