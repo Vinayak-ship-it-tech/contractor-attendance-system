@@ -32,9 +32,7 @@ function Dashboard() {
   };
   
   const [data, setData] = useState({
-    total_workers: 0,
-    present_today: 0,
-    absent_today: 0,
+   
     unknown_today: 0,
     organizations: [],
   });
@@ -107,37 +105,12 @@ function Dashboard() {
           </div>
         </section>
 
-        <div className="stats-grid">
-          <div className="stat-card">
-            <h3>Total Workers</h3>
-            <h2>{summary.total_workers || 0}</h2>
-          </div>
+        
+          
 
-          <div className="stat-card">
-            <h3>Present Today</h3>
-            <h2>{summary.present_today || 0}</h2>
-          </div>
+          
 
-          <div className="stat-card">
-            <h3>Active Sites</h3>
-            <h2>{summary.active_sites || 0}</h2>
-          </div>
-
-          <div className="stat-card">
-            <h3>Pending Bills</h3>
-            <h2>{summary.pending_bills || 0}</h2>
-          </div>
-
-          <div className="stat-card">
-            <h3>Paid Bills</h3>
-            <h2>{summary.paid_bills || 0}</h2>
-          </div>
-
-          <div className="stat-card">
-            <h3>Monthly Salary</h3>
-            <h2>₹{summary.monthly_salary || 0}</h2>
-          </div>
-        </div>
+          
 
         <section className="kpi-grid">
           <div className="kpi-card blue">
@@ -162,6 +135,18 @@ function Dashboard() {
             <p>Unknown Faces</p>
             <h2>{data.unknown_today}</h2>
             <span>Need verification</span>
+          </div>
+
+           <div className="kpi-card orange">
+            <p>Active Sites</p>
+            <h2>{summary.active_sites || 0}</h2>
+            <span>Currently active work sites</span>
+          </div>
+
+          <div className="kpi-card blue">
+            <p>Attendance Photos</p>
+            <h2>{summary.total_photos || 0}</h2>
+            <span>Uploaded group photos</span>
           </div>
         </section>
 
@@ -191,6 +176,18 @@ function Dashboard() {
             <h3>Salary</h3>
             <p>Calculate wages based on attendance.</p>
           </Link>
+
+          <Link to="/reports" className="quick-card">
+          <div className="quick-icon">📊</div>
+          <h3>Reports & Analytics</h3>
+          <p>Generate attendance, salary and performance reports.</p>
+          </Link>
+
+        <Link to="/attendance" className="quick-card">
+          <div className="quick-icon">✅</div>
+          <h3>Attendance Sheet</h3>
+          <p>View today's attendance and worker records.</p>
+        </Link>
         </section>
 
         <div className="charts-grid">
