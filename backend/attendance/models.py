@@ -191,20 +191,6 @@ class WorkerFaceEncoding(models.Model):
     def __str__(self):
         return f"Learned face - {self.worker.name}"
     
-class WorkerFaceEncoding(models.Model):
-    worker = models.ForeignKey(Worker, on_delete=models.CASCADE)
-    face_image = models.ImageField(upload_to="worker_learned_faces/")
-    face_encoding = models.JSONField()
-    learned_from_unknown = models.ForeignKey(
-        UnknownPerson,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True
-    )
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.worker.name} learned face"
     
 
 def group_photo_upload_path(instance, filename):

@@ -37,6 +37,7 @@ useEffect(() => {
     const formData = new FormData();
     formData.append("group_photo", photo);
     formData.append("location", location);
+    formData.append("work_site", workSite);
 
     try {
       setLoading(true);
@@ -125,14 +126,24 @@ useEffect(() => {
             />
 
             <label>Location</label>
-            <input
-              type="text"
-              placeholder="Example: Site A, Gajuwaka"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-            />
+<input
+  type="text"
+  placeholder="Example: Site A, Gajuwaka"
+  value={location}
+  onChange={(e) => setLocation(e.target.value)}
+/>
 
-            <button type="submit" disabled={loading}>
+              <label>Work Site</label>
+              <select value={workSite} onChange={(e) => setWorkSite(e.target.value)}>
+                <option value="">Select Work Site</option>
+                {workSites.map((site) => (
+                  <option key={site.id} value={site.id}>
+                    {site.site_name}
+                  </option>
+                ))}
+              </select>
+
+              <button type="submit" disabled={loading}>
               {loading ? "Processing..." : "Upload & Mark Attendance"}
             </button>
           </form>
