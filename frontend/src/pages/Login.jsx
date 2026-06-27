@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import API from "../api";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
+import WelcomeAnimation from "./WelcomeAnimation";
 
 function Login() {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(false);
 
   const [form, setForm] = useState({
     username: "",
@@ -24,8 +26,7 @@ function Login() {
 
       localStorage.setItem("token", res.data.token);
 
-      alert("Login Successful");
-      navigate("/dashboard");
+      setShowWelcome(true);
     } catch (error) {
         console.log("FULL ERROR:", error);
         console.log("BACKEND RESPONSE:", error.response?.data);
@@ -37,6 +38,13 @@ function Login() {
       );
   }
     };
+    if (showWelcome) {
+  return (
+    <WelcomeAnimation
+      onFinish={() => navigate("/dashboard")}
+    />
+  );
+}
 
   return (
     <div className="login-container">
