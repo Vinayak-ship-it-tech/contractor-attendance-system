@@ -35,6 +35,7 @@ from reportlab.lib import colors
 from .models import Worker
 from .models import WorkerFaceEncoding
 from .face_api import extract_face_embedding, detect_group_faces
+from django.conf import settings
 
 from .models import (
     Worker,
