@@ -15,24 +15,23 @@ function Layout({ children }) {
         >
           ×
         </button>
-
         <Sidebar />
       </aside>
 
-      <section className="mobile-page">
+      <button
+        className="mobile-menu-btn"
+        onClick={() => setMenuOpen(true)}
+      >
+        ☰
+      </button>
 
-        <button
-          className="mobile-menu-btn"
-          onClick={() => setMenuOpen(true)}
-        >
-          ☰
-        </button>
+      <div className="desktop-sidebar">
+        <Sidebar />
+      </div>
 
-        <main className="main-content">
-          {children}
-        </main>
-
-      </section>
+      <main className="main-content">
+        {children}
+      </main>
 
     </div>
   );

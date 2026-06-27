@@ -106,11 +106,6 @@ button:hover {
   background: #1d4ed8;
 }
 
-.mobile-drawer,
-.mobile-page {
-  display: contents;
-}
-
 .mobile-menu-btn,
 .mobile-close-btn {
   display: none;
