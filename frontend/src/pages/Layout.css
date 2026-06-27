@@ -192,3 +192,51 @@ button:hover {
     z-index: 10;
   }
 }
+
+@media (max-width: 768px) {
+  .desktop-sidebar {
+    display: none !important;
+  }
+
+  .mobile-drawer {
+    display: block !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 72%;
+    height: 100vh;
+    z-index: 1;
+    background: linear-gradient(180deg, #0f7a4f, #064e3b) !important;
+    padding: 75px 18px 25px;
+    overflow-y: auto;
+  }
+
+  .mobile-drawer .sidebar {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    transform: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  .main-content {
+    position: relative;
+    z-index: 5;
+    margin-left: 0 !important;
+    width: 100% !important;
+    min-height: 100vh;
+    background: #f4f7fc;
+    padding: 80px 14px 20px !important;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+                border-radius 0.55s ease,
+                box-shadow 0.55s ease;
+  }
+
+  .layout-container.menu-open .main-content {
+    transform: translateX(68%) scale(0.92);
+    border-radius: 32px 0 0 32px;
+    box-shadow: -22px 0 45px rgba(0,0,0,0.38);
+  }
+}
