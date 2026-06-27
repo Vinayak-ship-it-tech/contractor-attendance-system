@@ -105,3 +105,56 @@ button {
 button:hover {
   background: #1d4ed8;
 }
+
+@media (max-width: 768px) {
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -230px;
+    width: 230px;
+    height: 100vh;
+    z-index: 9999;
+    transition: left 0.35s ease, box-shadow 0.35s ease;
+    overflow-y: auto;
+  }
+
+  .sidebar:hover {
+    left: 0;
+    box-shadow: 8px 0 30px rgba(0, 0, 0, 0.35);
+  }
+
+  .sidebar::after {
+    content: "☰";
+    position: fixed;
+    top: 18px;
+    left: 0;
+    width: 42px;
+    height: 46px;
+    background: #111827;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 14px 14px 0;
+    font-size: 24px;
+    cursor: pointer;
+    transition: left 0.35s ease, background 0.3s ease;
+  }
+
+  .sidebar:hover::after {
+    left: 230px;
+    content: "×";
+    background: #dc2626;
+  }
+
+  .main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: 70px 12px 12px 12px;
+  }
+
+  .layout {
+    width: 100%;
+  }
+}

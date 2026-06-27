@@ -129,3 +129,18 @@ body::-webkit-scrollbar,
     font-size: 14px;
     line-height: 1.4;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+img, video {
+  max-width: 100%;
+}
