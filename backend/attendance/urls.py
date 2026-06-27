@@ -18,6 +18,7 @@ urlpatterns = [
     path("attendance/site/<int:site_id>/", views.site_attendance),
     path("checkout/<int:attendance_id>/", views.checkout_worker),
     path("offline-attendance/", offline_attendance),
+    path("offline-attendance-sync/", OfflineAttendanceView.as_view()),
 
     # Group photo / Unknown persons
     path("upload-group-photo/", views.upload_group_photo),

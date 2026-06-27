@@ -46,9 +46,9 @@ class Worker(models.Model):
         default='permanent'
     )
     photo = models.ImageField(
-        upload_to="workers/",
-        null=True,
-        blank=True
+    upload_to="workers/",
+    null=True,
+    blank=True
     )
 
     face_embedding = models.JSONField(
@@ -56,8 +56,17 @@ class Worker(models.Model):
         blank=True
     )
 
-    daily_wage = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    hourly_wage = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    daily_wage = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0
+    )
+
+    hourly_wage = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0
+    )
 
     work_site = models.ForeignKey(
         WorkSite,
@@ -66,8 +75,12 @@ class Worker(models.Model):
         blank=True
     )
 
-    face_image = models.ImageField(upload_to='workers/')
-    face_encoding = models.JSONField(blank=True, null=True)
+    face_image = models.ImageField(
+        upload_to="workers/",
+        null=True,
+        blank=True
+    )
+
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
@@ -189,13 +202,16 @@ class WorkerFaceHistory(models.Model):
 class WorkerFaceEncoding(models.Model):
     worker = models.ForeignKey(Worker, on_delete=models.CASCADE)
     face_image = models.ImageField(upload_to="worker_learned_faces/")
-    face_encoding = models.JSONField()
+
+    face_embedding = models.JSONField()
+
     learned_from_unknown = models.ForeignKey(
         UnknownPerson,
         on_delete=models.SET_NULL,
         null=True,
         blank=True
     )
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

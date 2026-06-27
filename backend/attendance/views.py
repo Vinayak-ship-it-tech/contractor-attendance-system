@@ -31,10 +31,6 @@ from rest_framework import status
 from .models import OfflineAttendance
 from .serializers import OfflineAttendanceSerializer
 #import face_recognition
-try:
-    import face_recognition
-except ImportError:
-    face_recognition = None
 from reportlab.lib.units import mm
 from reportlab.lib import colors
 from .models import Worker
@@ -252,41 +248,6 @@ def _build_absolute_media_url(request, file_field):
         return ""
 
 
-def _get_worker_face_encoding(worker):
-    try:
-        if not worker.face_image:
-            return None
-
-        image = face_recognition.load_image_file(worker.face_image.path)
-        encodings = face_recognition.face_encodings(image)
-
-        if len(encodings) == 0:
-            return None
-
-        return encodings[0]
-
-    except Exception:
-        return None
-    
-def get_all_worker_encodings():
-    known_workers = []
-    known_encodings = []
-
-    for worker in Worker.objects.filter(is_active=True):
-        main_encoding = _get_worker_face_encoding(worker)
-
-        if main_encoding is not None:
-            known_workers.append(worker)
-            known_encodings.append(main_encoding)
-
-        learned_faces = WorkerFaceEncoding.objects.filter(worker=worker)
-
-        for learned_face in learned_faces:
-            known_workers.append(worker)
-            known_encodings.append(np.array(learned_face.face_encoding))
-
-    return known_workers, known_encodings
-
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def upload_group_photo(request):
@@ -316,28 +277,8 @@ def upload_group_photo(request):
     )
 
     try:
-        with open(group_upload.group_photo.path, "rb") as img:
-            files = {
-                "photo": (
-                    group_upload.group_photo.name,
-                    img,
-                    "image/jpeg",
-                )
-            }
-
-            hf_response = requests.post(
-                f"{settings.FACE_API_URL}/detect-group/",
-                files=files,
-                timeout=120,
-            )
-
-        if hf_response.status_code != 200:
-            return Response({
-                "error": "Face API failed",
-                "details": hf_response.text,
-            }, status=500)
-
-        face_result = hf_response.json()
+        group_upload.group_photo.open("rb")
+        face_result = detect_group_faces(group_upload.group_photo)
 
     except Exception as e:
         return Response({
@@ -1980,16 +1921,12 @@ def get_all_worker_encodings():
     known_workers = []
     known_encodings = []
 
-    for worker in Worker.objects.filter(is_active=True):
-        if worker.face_encoding:
-            known_workers.append(worker)
-            known_encodings.append(np.array(worker.face_encoding))
-
-        learned_faces = WorkerFaceEncoding.objects.filter(worker=worker)
-
-        for face in learned_faces:
-            known_workers.append(worker)
-            known_encodings.append(np.array(face.face_encoding))
+    for worker in Worker.objects.filter(
+        is_active=True,
+        face_embedding__isnull=False
+    ):
+        known_workers.append(worker)
+        known_encodings.append(np.array(worker.face_embedding))
 
     return known_workers, known_encodings
 
@@ -2000,10 +1937,7 @@ def learn_unknown_face(request):
     worker_id = request.data.get("worker_id")
 
     if not unknown_id or not worker_id:
-        return Response(
-            {"error": "unknown_id and worker_id are required"},
-            status=400
-        )
+        return Response({"error": "unknown_id and worker_id are required"}, status=400)
 
     try:
         unknown = UnknownPerson.objects.get(id=unknown_id)
@@ -2015,37 +1949,39 @@ def learn_unknown_face(request):
     except Worker.DoesNotExist:
         return Response({"error": "Worker not found"}, status=404)
 
-    image = face_recognition.load_image_file(unknown.image.path)
-    face_locations = face_recognition.face_locations(image)
+    if not unknown.image:
+        return Response({"error": "Unknown image not found"}, status=400)
 
-    if len(face_locations) == 0:
-        return Response({"error": "No face found in unknown image"}, status=400)
+    try:
+        unknown.image.open("rb")
+        hf_result = extract_face_embedding(unknown.image)
 
-    face_encodings = face_recognition.face_encodings(image, face_locations)
+        if not hf_result.get("success"):
+            return Response({
+                "error": "Face not detected by Hugging Face API",
+                "details": hf_result
+            }, status=400)
 
-    if len(face_encings := face_encodings) == 0:
-        return Response({"error": "Face encoding failed"}, status=400)
+        worker.face_embedding = hf_result.get("embedding")
+        worker.save()
 
-    encoding = face_encings[0]
+        WorkerFaceHistory.objects.create(
+            worker=worker,
+            face_image=unknown.image,
+            location=unknown.location
+        )
 
-    WorkerFaceEncoding.objects.create(
-        worker=worker,
-        face_image=unknown.image,
-        face_encoding=encoding.tolist(),
-        learned_from_unknown=unknown
-    )
+        unknown.is_registered = True
+        unknown.save()
 
-    WorkerFaceHistory.objects.create(
-        worker=worker,
-        face_image=unknown.image,
-        location=unknown.location
-    )
+        return Response({
+            "message": "AI learned this face successfully",
+            "worker_id": worker.id,
+            "worker_name": worker.name
+        })
 
-    unknown.is_registered = True
-    unknown.save()
-
-    return Response({
-        "message": "AI learned this face successfully",
-        "worker_id": worker.id,
-        "worker_name": worker.name
-    })
+    except Exception as e:
+        return Response({
+            "error": "Hugging Face API failed",
+            "details": str(e)
+        }, status=500)

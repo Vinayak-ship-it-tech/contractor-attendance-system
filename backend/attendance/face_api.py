@@ -1,8 +1,8 @@
 import requests
 from decouple import config
 
-FACE_API_URL = config("FACE_API_URL")
-FACE_API_KEY = config("FACE_API_KEY")
+FACE_API_URL = config("FACE_API_URL", default="")
+FACE_API_KEY = config("FACE_API_KEY", default="")
 
 
 def extract_face_embedding(photo_file):
@@ -20,6 +20,13 @@ def extract_face_embedding(photo_file):
         files=files,
         timeout=60
     )
+
+    if response.status_code != 200:
+        return {
+            "success": False,
+            "message": "Face API failed",
+            "details": response.text
+        }
 
     return response.json()
 
@@ -39,5 +46,13 @@ def detect_group_faces(photo_file):
         files=files,
         timeout=120
     )
+
+    if response.status_code != 200:
+        return {
+            "success": False,
+            "message": "Face API failed",
+            "details": response.text,
+            "faces": []
+        }
 
     return response.json()
