@@ -6,7 +6,7 @@ function Layout({ children }) {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   return (
-    <div className="layout-container">
+    <div className={mobileSidebarOpen ? "layout-container menu-open" : "layout-container"}>
 
       <button
         className="mobile-menu-btn"
@@ -15,7 +15,7 @@ function Layout({ children }) {
         ☰
       </button>
 
-      <div className={mobileSidebarOpen ? "sidebar mobile-open" : "sidebar"}>
+      <aside className="mobile-video-sidebar">
         <button
           className="mobile-close-btn"
           onClick={() => setMobileSidebarOpen(false)}
@@ -24,16 +24,14 @@ function Layout({ children }) {
         </button>
 
         <Sidebar />
-      </div>
+      </aside>
 
-      {mobileSidebarOpen && (
-        <div
-          className="mobile-overlay"
-          onClick={() => setMobileSidebarOpen(false)}
-        ></div>
-      )}
-
-      <main className={mobileSidebarOpen ? "main-content pushed" : "main-content"}>
+      <main
+        className="main-content"
+        onClick={() => {
+          if (mobileSidebarOpen) setMobileSidebarOpen(false);
+        }}
+      >
         {children}
       </main>
 
