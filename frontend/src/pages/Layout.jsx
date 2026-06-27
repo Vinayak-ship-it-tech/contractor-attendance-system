@@ -26,6 +26,13 @@ function Layout({ children }) {
         <Sidebar />
       </div>
 
+      {mobileSidebarOpen && (
+        <div
+          className="mobile-overlay"
+          onClick={() => setMobileSidebarOpen(false)}
+        ></div>
+      )}
+
       <main className={mobileSidebarOpen ? "main-content pushed" : "main-content"}>
         {children}
       </main>
