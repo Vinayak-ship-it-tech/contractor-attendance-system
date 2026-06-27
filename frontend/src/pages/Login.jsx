@@ -18,8 +18,8 @@ function Login() {
 
     try {
       const res = await API.post("login/", {
-        username: form.username,
-        password: form.password,
+        username: form.username.trim(),
+        password: form.password.trim(),
       });
 
       localStorage.setItem("token", res.data.token);
