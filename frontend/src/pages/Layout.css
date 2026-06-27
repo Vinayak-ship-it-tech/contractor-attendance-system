@@ -106,137 +106,86 @@ button:hover {
   background: #1d4ed8;
 }
 
-.mobile-menu-btn,
-.mobile-close-btn {
-  display: none;
-}
-
 @media (max-width: 768px) {
 
-  .layout-container {
-    display: block !important;
-    position: relative;
-    min-height: 100vh;
-    background: linear-gradient(180deg, #0f7a4f, #064e3b) !important;
-    overflow-x: hidden;
-  }
-
-  .mobile-drawer {
-    display: block !important;
+  .sidebar {
     position: fixed;
     top: 0;
-    left: 0;
-    width: 72%;
+    left: -82%;
+    width: 82%;
     height: 100vh;
-    z-index: 1;
-    padding: 75px 18px 25px;
-    background: transparent !important;
+    z-index: 9999;
+
+    background: linear-gradient(160deg, #064e3b, #022c22);
+    color: white;
+
+    border-radius: 0 28px 28px 0;
+    padding: 24px 18px;
+
+    transition: left 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 15px 0 40px rgba(0, 0, 0, 0.35);
     overflow-y: auto;
   }
 
-  .mobile-page {
-    display: block !important;
-    position: relative;
-    z-index: 5;
-    min-height: 100vh;
-    background: #f4f7fc;
-    transform-origin: left center;
-    transition:
-      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-      border-radius 0.55s ease,
-      box-shadow 0.55s ease;
+  .sidebar:hover {
+    left: 0;
   }
 
-  .layout-container.menu-open .mobile-page {
-    transform: translateX(68%) scale(0.92);
-    border-radius: 32px 0 0 32px;
-    box-shadow: -22px 0 45px rgba(0,0,0,0.38);
-    overflow: hidden;
-  }
-
-  .main-content {
-    margin-left: 0 !important;
-    width: 100% !important;
-    min-height: 100vh;
-    padding: 80px 14px 20px !important;
-    background: #f4f7fc;
-  }
-
-  .mobile-menu-btn {
-    display: block !important;
+  .sidebar::after {
+    content: "☰";
     position: fixed;
-    top: 18px;
-    left: 18px;
-    z-index: 100;
+    top: 22px;
+    left: 0;
     width: 46px;
-    height: 46px;
-    border-radius: 15px;
-    background: white !important;
-    color: #064e3b !important;
+    height: 48px;
+
+    background: #064e3b;
+    color: white;
+    border-radius: 0 18px 18px 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     font-size: 24px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    cursor: pointer;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+    transition: left 0.45s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .layout-container.menu-open .mobile-menu-btn {
-    display: none !important;
+  .sidebar:hover::after {
+    content: "×";
+    left: calc(82% - 52px);
+    background: transparent;
+    font-size: 30px;
+    box-shadow: none;
   }
 
-  .mobile-close-btn {
-    display: block !important;
-    position: absolute;
-    top: 18px;
-    right: 18px;
-    background: transparent !important;
+  .sidebar a,
+  .sidebar button,
+  .sidebar .menu-item {
     color: white !important;
-    font-size: 32px;
-    z-index: 10;
-  }
-}
-
-@media (max-width: 768px) {
-  .desktop-sidebar {
-    display: none !important;
+    border-radius: 14px;
+    transition: all 0.3s ease;
   }
 
-  .mobile-drawer {
-    display: block !important;
-    position: fixed !important;
-    top: 0;
-    left: 0;
-    width: 72%;
-    height: 100vh;
-    z-index: 1;
-    background: linear-gradient(180deg, #0f7a4f, #064e3b) !important;
-    padding: 75px 18px 25px;
-    overflow-y: auto;
-  }
-
-  .mobile-drawer .sidebar {
-    position: static !important;
-    width: 100% !important;
-    height: auto !important;
-    transform: none !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    padding: 0 !important;
+  .sidebar a:hover,
+  .sidebar button:hover,
+  .sidebar .menu-item:hover {
+    background: rgba(255, 255, 255, 0.13);
+    transform: translateX(8px);
   }
 
   .main-content {
-    position: relative;
-    z-index: 5;
     margin-left: 0 !important;
     width: 100% !important;
-    min-height: 100vh;
-    background: #f4f7fc;
-    padding: 80px 14px 20px !important;
-    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-                border-radius 0.55s ease,
-                box-shadow 0.55s ease;
+    padding: 70px 12px 12px;
+    transition: transform 0.45s ease, filter 0.45s ease;
   }
 
-  .layout-container.menu-open .main-content {
-    transform: translateX(68%) scale(0.92);
-    border-radius: 32px 0 0 32px;
-    box-shadow: -22px 0 45px rgba(0,0,0,0.38);
+  .sidebar:hover ~ .main-content {
+    transform: translateX(18%);
+    filter: brightness(0.9);
   }
 }
