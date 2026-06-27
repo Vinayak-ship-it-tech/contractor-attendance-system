@@ -2,6 +2,7 @@ from datetime import date, datetime
 from decimal import Decimal
 from io import BytesIO
 import io
+import requests
 
 import cv2
 import numpy as np
@@ -314,18 +315,43 @@ def upload_group_photo(request):
         longitude=longitude,
     )
 
+    if not settings.FACE_API_URL:
+        return Response({"error": "FACE_API_URL is missing"}, status=500)
+
     try:
-        rgb_image = face_recognition.load_image_file(group_upload.group_photo.path)
-    except Exception:
-        return Response({"error": "Unable to read uploaded image"}, status=400)
+        with open(group_upload.group_photo.path, "rb") as img:
+            files = {
+                "group_photo": (
+                    group_upload.group_photo.name,
+                    img,
+                    "image/jpeg",
+                )
+            }
 
-    face_locations = face_recognition.face_locations(rgb_image, model="hog")
-    face_encodings = face_recognition.face_encodings(rgb_image, face_locations)
+            data = {
+                "api_key": settings.FACE_API_KEY,
+            }
 
-    pil_image = Image.fromarray(rgb_image)
-    draw = ImageDraw.Draw(pil_image)
+            hf_response = requests.post(
+                f"{settings.FACE_API_URL}/recognize-group/",
+                files=files,
+                data=data,
+                timeout=120,
+            )
 
-    known_workers, known_encodings = get_all_worker_encodings()
+        if hf_response.status_code != 200:
+            return Response({
+                "error": "Face API failed",
+                "details": hf_response.text,
+            }, status=500)
+
+        face_result = hf_response.json()
+
+    except Exception as e:
+        return Response({
+            "error": "Unable to connect to Hugging Face Face API",
+            "details": str(e),
+        }, status=500)
 
     matched_workers = []
     already_marked = []
@@ -333,30 +359,21 @@ def upload_group_photo(request):
     suspicious_faces = 0
     today = date.today()
 
-    for face_location, face_encoding in zip(face_locations, face_encodings):
-        top, right, bottom, left = face_location
-        face_crop = rgb_image[top:bottom, left:right]
+    detected_faces = face_result.get("faces", [])
 
-        if face_crop.size == 0 or not detect_face_spoof(face_crop):
-            suspicious_faces += 1
+    for face in detected_faces:
+        worker_id = face.get("worker_id")
+        worker_name = face.get("worker_name")
+        confidence = face.get("confidence", 0)
+        is_unknown = face.get("is_unknown", True)
+        unknown_image_url = face.get("unknown_image_url", "")
 
-        matched_worker = None
-        confidence = 0
+        if not is_unknown and worker_id:
+            try:
+                matched_worker = Worker.objects.get(id=worker_id)
+            except Worker.DoesNotExist:
+                continue
 
-        if known_encodings:
-            distances = face_recognition.face_distance(
-                known_encodings,
-                face_encoding
-            )
-
-            best_index = int(np.argmin(distances))
-            best_distance = float(distances[best_index])
-
-            if best_distance <= 0.50:
-                matched_worker = known_workers[best_index]
-                confidence = round(max(0, (1 - best_distance)) * 100, 2)
-
-        if matched_worker:
             attendance, created = Attendance.objects.get_or_create(
                 worker=matched_worker,
                 date=today,
@@ -369,9 +386,6 @@ def upload_group_photo(request):
                     "status": "Present",
                 },
             )
-
-            draw.rectangle([left, top, right, bottom], outline="green", width=5)
-            draw.text((left, max(0, top - 22)), matched_worker.name, fill="green")
 
             if created:
                 WorkerFaceHistory.objects.create(
@@ -393,36 +407,17 @@ def upload_group_photo(request):
                 })
 
         else:
-            draw.rectangle([left, top, right, bottom], outline="red", width=5)
-            draw.text((left, max(0, top - 22)), "Unknown", fill="red")
-
-            pil_face = Image.fromarray(face_crop)
-            buffer = io.BytesIO()
-            pil_face.save(buffer, format="JPEG")
-
             unknown_person = UnknownPerson.objects.create(location=location)
-            unknown_person.image.save(
-                f"unknown_{unknown_person.id}.jpg",
-                ContentFile(buffer.getvalue()),
-                save=True,
-            )
 
             unknown_faces.append({
                 "id": unknown_person.id,
-                "image": _build_absolute_media_url(request, unknown_person.image),
+                "image": unknown_image_url,
                 "location": unknown_person.location,
                 "date": unknown_person.date,
                 "time": unknown_person.time,
             })
 
-    marked_buffer = io.BytesIO()
-    pil_image.save(marked_buffer, format="JPEG")
-
-    group_upload.marked_photo.save(
-        f"marked_group_{group_upload.id}.jpg",
-        ContentFile(marked_buffer.getvalue()),
-        save=True,
-    )
+    marked_photo_url = face_result.get("marked_photo_url", "")
 
     present_workers = [item["name"] for item in matched_workers]
 
@@ -435,15 +430,15 @@ def upload_group_photo(request):
         "location": location,
         "latitude": latitude,
         "longitude": longitude,
-        "total_faces_detected": len(face_locations),
-        "detected_faces": len(face_locations),
+        "total_faces_detected": len(detected_faces),
+        "detected_faces": len(detected_faces),
         "matched_workers": matched_workers,
         "already_marked": already_marked,
         "unknown_faces": unknown_faces,
         "unknown_faces_count": len(unknown_faces),
         "suspicious_faces": suspicious_faces,
         "present_workers": present_workers,
-        "marked_photo": _build_absolute_media_url(request, group_upload.marked_photo),
+        "marked_photo": marked_photo_url,
     })
 
 
