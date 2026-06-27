@@ -27,10 +27,16 @@ function Login() {
       alert("Login Successful");
       navigate("/dashboard");
     } catch (error) {
-      console.log(error);
-      alert("Invalid Username or Password");
-    }
-  };
+        console.log("FULL ERROR:", error);
+        console.log("BACKEND RESPONSE:", error.response?.data);
+
+    alert(
+      error.response?.data?.error ||
+      error.message ||
+      "Login failed"
+      );
+  }
+    };
 
   return (
     <div className="login-container">
