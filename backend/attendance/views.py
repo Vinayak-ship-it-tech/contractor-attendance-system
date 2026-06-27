@@ -315,27 +315,19 @@ def upload_group_photo(request):
         longitude=longitude,
     )
 
-    if not settings.FACE_API_URL:
-        return Response({"error": "FACE_API_URL is missing"}, status=500)
-
     try:
         with open(group_upload.group_photo.path, "rb") as img:
             files = {
-                "group_photo": (
+                "photo": (
                     group_upload.group_photo.name,
                     img,
                     "image/jpeg",
                 )
             }
 
-            data = {
-                "api_key": settings.FACE_API_KEY,
-            }
-
             hf_response = requests.post(
-                f"{settings.FACE_API_URL}/recognize-group/",
+                f"{settings.FACE_API_URL}/detect-group/",
                 files=files,
-                data=data,
                 timeout=120,
             )
 
@@ -353,29 +345,46 @@ def upload_group_photo(request):
             "details": str(e),
         }, status=500)
 
+    detected_faces = face_result.get("faces", [])
+
     matched_workers = []
     already_marked = []
     unknown_faces = []
     suspicious_faces = 0
     today = date.today()
 
-    detected_faces = face_result.get("faces", [])
+    workers = Worker.objects.filter(
+        is_active=True,
+        face_embedding__isnull=False
+    )
+
+    threshold = 0.45
 
     for face in detected_faces:
-        worker_id = face.get("worker_id")
-        worker_name = face.get("worker_name")
-        confidence = face.get("confidence", 0)
-        is_unknown = face.get("is_unknown", True)
-        unknown_image_url = face.get("unknown_image_url", "")
+        face_embedding = face.get("embedding")
 
-        if not is_unknown and worker_id:
-            try:
-                matched_worker = Worker.objects.get(id=worker_id)
-            except Worker.DoesNotExist:
-                continue
+        if not face_embedding:
+            continue
 
+        face_embedding = np.array(face_embedding)
+
+        best_worker = None
+        best_score = -1
+
+        for worker in workers:
+            worker_embedding = np.array(worker.face_embedding)
+
+            similarity = np.dot(face_embedding, worker_embedding) / (
+                np.linalg.norm(face_embedding) * np.linalg.norm(worker_embedding)
+            )
+
+            if similarity > best_score:
+                best_score = similarity
+                best_worker = worker
+
+        if best_worker and best_score >= threshold:
             attendance, created = Attendance.objects.get_or_create(
-                worker=matched_worker,
+                worker=best_worker,
                 date=today,
                 defaults={
                     "work_site": work_site,
@@ -389,35 +398,35 @@ def upload_group_photo(request):
 
             if created:
                 WorkerFaceHistory.objects.create(
-                    worker=matched_worker,
+                    worker=best_worker,
                     face_image=group_upload.group_photo,
                     location=location,
                 )
 
                 matched_workers.append({
-                    "id": matched_worker.id,
-                    "name": matched_worker.name,
-                    "confidence": confidence,
+                    "id": best_worker.id,
+                    "name": best_worker.name,
+                    "confidence": round(float(best_score), 3),
                 })
             else:
                 already_marked.append({
-                    "id": matched_worker.id,
-                    "name": matched_worker.name,
-                    "confidence": confidence,
+                    "id": best_worker.id,
+                    "name": best_worker.name,
+                    "confidence": round(float(best_score), 3),
                 })
 
         else:
-            unknown_person = UnknownPerson.objects.create(location=location)
+            unknown_person = UnknownPerson.objects.create(
+                location=location
+            )
 
             unknown_faces.append({
                 "id": unknown_person.id,
-                "image": unknown_image_url,
                 "location": unknown_person.location,
                 "date": unknown_person.date,
                 "time": unknown_person.time,
+                "confidence": round(float(best_score), 3),
             })
-
-    marked_photo_url = face_result.get("marked_photo_url", "")
 
     present_workers = [item["name"] for item in matched_workers]
 
@@ -438,7 +447,7 @@ def upload_group_photo(request):
         "unknown_faces_count": len(unknown_faces),
         "suspicious_faces": suspicious_faces,
         "present_workers": present_workers,
-        "marked_photo": marked_photo_url,
+        "marked_photo": "",
     })
 
 
