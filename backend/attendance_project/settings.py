@@ -16,8 +16,9 @@ ALLOWED_HOSTS = [
 USE_HF_FACE_API = config("USE_HF_FACE_API", default=True, cast=bool)
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://contractor-attendance-system-5.onrender.com",
+    "https://contractor-attendance-system-7.onrender.com",
     "https://contractor-attendance-system-krto.vercel.app",
+    "https://contractor-attendance-system-d614.vercel.app",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = False
@@ -25,6 +26,7 @@ CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "https://contractor-attendance-system-krto.vercel.app",
+    "https://contractor-attendance-system-d614.vercel.app",
 ]
 
 INSTALLED_APPS = [
