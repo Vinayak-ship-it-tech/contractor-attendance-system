@@ -106,137 +106,69 @@ button:hover {
   background: #1d4ed8;
 }
 
-/* hidden on desktop */
-.mobile-menu-btn,
-.mobile-close-btn {
-  display: none;
-}
-
-/* mobile only */
 @media (max-width: 768px) {
-  .layout-container {
-    display: block;
-    width: 100%;
-    overflow-x: hidden;
-  }
 
   .mobile-menu-btn {
-    display: block !important;
     position: fixed;
     top: 18px;
     left: 0;
-    width: 50px;
-    height: 50px;
-    z-index: 30000;
+    width: 48px;
+    height: 48px;
+    z-index: 10001;
     border-radius: 0 18px 18px 0;
-    background: #064e3b !important;
-    color: white !important;
-    font-size: 26px;
+    background: #064e3b;
+    color: white;
+    font-size: 24px;
     border: none;
     box-shadow: 0 8px 25px rgba(0,0,0,0.35);
   }
 
   .sidebar {
-    position: fixed !important;
+    position: fixed;
     top: 0;
-    left: 0 !important;
+    left: -82%;
     width: 82%;
     height: 100vh;
-    z-index: 30002;
-    background: linear-gradient(160deg, #064e3b, #022c22) !important;
+    z-index: 10002;
+    background: linear-gradient(160deg, #064e3b, #022c22);
     color: white;
     border-radius: 0 30px 30px 0;
-    padding: 65px 18px 25px;
-    overflow-y: auto;
-
-    transform: translateX(-105%);
-    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    padding: 25px 18px;
+    transition: left 0.45s cubic-bezier(0.22, 1, 0.36, 1);
     box-shadow: 15px 0 40px rgba(0,0,0,0.35);
+    overflow-y: auto;
   }
 
   .sidebar.mobile-open {
-    transform: translateX(0);
+    left: 0;
   }
 
   .mobile-close-btn {
-    display: block !important;
     position: absolute;
-    top: 15px;
-    right: 18px;
-    z-index: 30003;
-    background: transparent !important;
-    color: white !important;
-    font-size: 34px;
+    top: 18px;
+    right: 20px;
+    background: transparent;
+    color: white;
+    font-size: 32px;
     border: none;
   }
 
   .mobile-overlay {
     position: fixed;
     inset: 0;
-    z-index: 30001;
-    background: rgba(0,0,0,0.45);
-    animation: overlayFade 0.35s ease;
+    background: rgba(0,0,0,0.35);
+    z-index: 10000;
   }
 
   .main-content {
     margin-left: 0 !important;
     width: 100% !important;
-    padding: 75px 12px 12px !important;
+    padding: 75px 12px 12px;
     transition: transform 0.45s ease, filter 0.45s ease;
   }
 
   .main-content.pushed {
     transform: translateX(18%);
     filter: brightness(0.85);
-  }
-
-  .sidebar a,
-  .sidebar button,
-  .sidebar .menu-item {
-    color: white !important;
-    border-radius: 14px;
-    transition: all 0.3s ease;
-  }
-
-  .sidebar a:hover,
-  .sidebar .menu-item:hover {
-    background: rgba(255,255,255,0.13);
-    transform: translateX(8px);
-  }
-
-  .dashboard-grid,
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .card,
-  .dash-card,
-  .worker-card {
-    padding: 18px;
-  }
-
-  table {
-    min-width: 700px;
-  }
-
-  @keyframes overlayFade {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  .sidebar {
-    position: fixed !important;
-    left: 0 !important;
-    transform: translateX(-105%) !important;
-  }
-
-  .sidebar.mobile-open {
-    transform: translateX(0) !important;
   }
 }
