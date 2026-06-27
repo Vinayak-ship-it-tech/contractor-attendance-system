@@ -417,8 +417,9 @@ def upload_group_photo(request):
 
         else:
             unknown_person = UnknownPerson.objects.create(
-                location=location
-            )
+                    image=group_upload.group_photo,
+                    location=location
+                )
 
             unknown_faces.append({
                 "id": unknown_person.id,
@@ -490,8 +491,20 @@ def register_unknown_worker(request):
         daily_wage=daily_wage,
         hourly_wage=hourly_wage,
         face_image=unknown.image,
+        photo=unknown.image,
         is_active=True,
     )
+
+    if unknown.image:
+        try:
+            unknown.image.open("rb")
+            hf_result = extract_face_embedding(unknown.image)
+
+            if hf_result.get("success"):
+                worker.face_embedding = hf_result.get("embedding")
+                worker.save()
+        except Exception:
+            pass
 
     unknown.is_registered = True
     unknown.save()
