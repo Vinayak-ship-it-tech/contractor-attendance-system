@@ -29,7 +29,11 @@ from rest_framework.views import APIView
 from rest_framework import status
 from .models import OfflineAttendance
 from .serializers import OfflineAttendanceSerializer
-import face_recognition
+#import face_recognition
+try:
+    import face_recognition
+except ImportError:
+    face_recognition = None
 from reportlab.lib.units import mm
 from reportlab.lib import colors
 from .models import Worker
