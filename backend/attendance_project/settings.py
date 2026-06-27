@@ -13,6 +13,7 @@ ALLOWED_HOSTS = [
     "contractor-attendance-system-5.onrender.com",
     ".onrender.com",
 ]
+USE_HF_FACE_API = config("USE_HF_FACE_API", default=True, cast=bool)
 
 CSRF_TRUSTED_ORIGINS = [
     "https://contractor-attendance-system-5.onrender.com",

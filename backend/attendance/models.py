@@ -45,6 +45,16 @@ class Worker(models.Model):
         choices=WORKER_TYPE,
         default='permanent'
     )
+    photo = models.ImageField(
+        upload_to="workers/",
+        null=True,
+        blank=True
+    )
+
+    face_embedding = models.JSONField(
+        null=True,
+        blank=True
+    )
 
     daily_wage = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     hourly_wage = models.DecimalField(max_digits=10, decimal_places=2, default=0)

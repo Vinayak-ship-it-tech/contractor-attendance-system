@@ -34,6 +34,7 @@ from reportlab.lib.units import mm
 from reportlab.lib import colors
 from .models import Worker
 from .models import WorkerFaceEncoding
+from .face_api import extract_face_embedding, detect_group_faces
 
 from .models import (
     Worker,
@@ -124,8 +125,36 @@ def workers(request):
     serializer = WorkerSerializer(data=request.data)
 
     if serializer.is_valid():
-        serializer.save()
-        return Response({"message": "Worker added successfully"})
+        worker = serializer.save()
+
+        photo = request.FILES.get("face_image") or request.FILES.get("photo")
+
+        if photo:
+            try:
+                photo.seek(0)
+                hf_result = extract_face_embedding(photo)
+
+                if hf_result.get("success"):
+                    worker.face_embedding = hf_result.get("embedding")
+                    worker.save()
+                else:
+                    return Response({
+                        "message": "Worker added, but face not detected",
+                        "worker_id": worker.id,
+                        "face_api_message": hf_result.get("message")
+                    }, status=201)
+
+            except Exception as e:
+                return Response({
+                    "message": "Worker added, but Hugging Face API failed",
+                    "worker_id": worker.id,
+                    "error": str(e)
+                }, status=201)
+
+        return Response({
+            "message": "Worker added successfully",
+            "worker_id": worker.id
+        }, status=201)
 
     return Response(serializer.errors, status=400)
 
