@@ -114,3 +114,7 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.IsAuthenticated",
     ],
 }
+
+FACE_API_URL = config("FACE_API_URL", default="")
+FACE_API_KEY = config("FACE_API_KEY", default="")
+USE_HF_FACE_API = config("USE_HF_FACE_API", default=False, cast=bool)
