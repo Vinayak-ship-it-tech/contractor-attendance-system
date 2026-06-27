@@ -106,8 +106,9 @@ button:hover {
   background: #1d4ed8;
 }
 
-.mobile-video-sidebar {
-  display: none;
+.mobile-drawer,
+.mobile-page {
+  display: contents;
 }
 
 .mobile-menu-btn,
@@ -118,23 +119,52 @@ button:hover {
 @media (max-width: 768px) {
 
   .layout-container {
-    display: block;
+    display: block !important;
     position: relative;
     min-height: 100vh;
-    background: linear-gradient(180deg, #0f7a4f, #064e3b);
+    background: linear-gradient(180deg, #0f7a4f, #064e3b) !important;
     overflow-x: hidden;
   }
 
-  .mobile-video-sidebar {
-    display: block;
+  .mobile-drawer {
+    display: block !important;
     position: fixed;
-    inset: 0 auto 0 0;
+    top: 0;
+    left: 0;
     width: 72%;
     height: 100vh;
     z-index: 1;
     padding: 75px 18px 25px;
-    background: transparent;
+    background: transparent !important;
     overflow-y: auto;
+  }
+
+  .mobile-page {
+    display: block !important;
+    position: relative;
+    z-index: 5;
+    min-height: 100vh;
+    background: #f4f7fc;
+    transform-origin: left center;
+    transition:
+      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      border-radius 0.55s ease,
+      box-shadow 0.55s ease;
+  }
+
+  .layout-container.menu-open .mobile-page {
+    transform: translateX(68%) scale(0.92);
+    border-radius: 32px 0 0 32px;
+    box-shadow: -22px 0 45px rgba(0,0,0,0.38);
+    overflow: hidden;
+  }
+
+  .main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+    min-height: 100vh;
+    padding: 80px 14px 20px !important;
+    background: #f4f7fc;
   }
 
   .mobile-menu-btn {
@@ -153,8 +183,7 @@ button:hover {
   }
 
   .layout-container.menu-open .mobile-menu-btn {
-    opacity: 0;
-    pointer-events: none;
+    display: none !important;
   }
 
   .mobile-close-btn {
@@ -166,36 +195,5 @@ button:hover {
     color: white !important;
     font-size: 32px;
     z-index: 10;
-  }
-
-  .main-content {
-    position: relative;
-    z-index: 5;
-    min-height: 100vh;
-    margin-left: 0 !important;
-    width: 100% !important;
-    background: #f4f7fc;
-    padding: 80px 14px 20px !important;
-
-    transform-origin: left center;
-    transition:
-      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-      border-radius 0.55s ease,
-      box-shadow 0.55s ease;
-  }
-
-  .layout-container.menu-open .main-content {
-    transform: translateX(68%) scale(0.92) rotateY(-4deg);
-    border-radius: 32px 0 0 32px;
-    box-shadow: -24px 0 50px rgba(0,0,0,0.38);
-  }
-
-  .layout-container.menu-open .main-content::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.08);
-    border-radius: 32px 0 0 32px;
-    pointer-events: none;
   }
 }

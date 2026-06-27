@@ -3,22 +3,15 @@ import Sidebar from "./Sidebar";
 import "./Layout.css";
 
 function Layout({ children }) {
-  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className={mobileSidebarOpen ? "layout-container menu-open" : "layout-container"}>
+    <div className={menuOpen ? "layout-container menu-open" : "layout-container"}>
 
-      <button
-        className="mobile-menu-btn"
-        onClick={() => setMobileSidebarOpen(true)}
-      >
-        ☰
-      </button>
-
-      <aside className="mobile-video-sidebar">
+      <aside className="mobile-drawer">
         <button
           className="mobile-close-btn"
-          onClick={() => setMobileSidebarOpen(false)}
+          onClick={() => setMenuOpen(false)}
         >
           ×
         </button>
@@ -26,14 +19,20 @@ function Layout({ children }) {
         <Sidebar />
       </aside>
 
-      <main
-        className="main-content"
-        onClick={() => {
-          if (mobileSidebarOpen) setMobileSidebarOpen(false);
-        }}
-      >
-        {children}
-      </main>
+      <section className="mobile-page">
+
+        <button
+          className="mobile-menu-btn"
+          onClick={() => setMenuOpen(true)}
+        >
+          ☰
+        </button>
+
+        <main className="main-content">
+          {children}
+        </main>
+
+      </section>
 
     </div>
   );
