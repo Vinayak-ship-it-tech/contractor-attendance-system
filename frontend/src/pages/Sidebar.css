@@ -477,3 +477,50 @@
     transform: scale(1) rotate(0deg);
   }
 }
+
+@media (max-width: 768px) {
+  .mobile-drawer .sidebar > .brand {
+    opacity: 0 !important;
+    transform: translateY(-45px) scale(0.7) !important;
+  }
+
+  .mobile-drawer.drawer-open .sidebar > .brand {
+    opacity: 1 !important;
+    animation: forceBrandMobile 1s ease forwards !important;
+  }
+
+  .mobile-drawer.drawer-open .sidebar > .brand .brand-logo {
+    animation: forceLogoMobile 1s ease forwards !important;
+  }
+}
+
+@keyframes forceBrandMobile {
+  0% {
+    opacity: 0;
+    transform: translateY(-45px) scale(0.7);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateY(8px) scale(1.08);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes forceLogoMobile {
+  0% {
+    transform: scale(0.3) rotate(-25deg);
+  }
+
+  60% {
+    transform: scale(1.25) rotate(10deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
