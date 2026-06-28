@@ -352,7 +352,34 @@ button:hover {
   table {
     min-width: 700px;
   }
-  }
+  .mobile-drawer .sidebar * {
+  animation: none;
+}
+
+.mobile-drawer.drawer-open .sidebar a,
+.mobile-drawer.drawer-open .sidebar button,
+.mobile-drawer.drawer-open .sidebar li,
+.mobile-drawer.drawer-open .sidebar .nav-link,
+.mobile-drawer.drawer-open .sidebar .sidebar-link {
+  opacity: 0;
+  transform: translateX(-30px);
+  animation: slideText 0.6s ease forwards;
+}
+
+.mobile-drawer.drawer-open .sidebar a:nth-of-type(1) { animation-delay: 0.05s; }
+.mobile-drawer.drawer-open .sidebar a:nth-of-type(2) { animation-delay: 0.12s; }
+.mobile-drawer.drawer-open .sidebar a:nth-of-type(3) { animation-delay: 0.19s; }
+.mobile-drawer.drawer-open .sidebar a:nth-of-type(4) { animation-delay: 0.26s; }
+.mobile-drawer.drawer-open .sidebar a:nth-of-type(5) { animation-delay: 0.33s; }
+.mobile-drawer.drawer-open .sidebar a:nth-of-type(6) { animation-delay: 0.40s; }
+.mobile-drawer.drawer-open .sidebar a:nth-of-type(7) { animation-delay: 0.47s; }
+.mobile-drawer.drawer-open .sidebar a:nth-of-type(8) { animation-delay: 0.54s; }
+.mobile-drawer.drawer-open .sidebar a:nth-of-type(9) { animation-delay: 0.61s; }
+.mobile-drawer.drawer-open .sidebar a:nth-of-type(10) { animation-delay: 0.68s; }
+}
+
+
+}
 @keyframes slideText {
   from {
     opacity: 0;
@@ -363,29 +390,5 @@ button:hover {
     opacity: 1;
     transform: translateX(0);
   }
-  
-}
-.mobile-drawer .sidebar a,
-.mobile-drawer .sidebar button,
-.mobile-drawer .sidebar li {
-  opacity: 0;
-  transform: translateX(-28px);
 }
 
-.mobile-drawer.drawer-open .sidebar a,
-.mobile-drawer.drawer-open .sidebar button,
-.mobile-drawer.drawer-open .sidebar li {
-  animation: slideText 0.55s forwards;
-}
-
-.mobile-drawer.drawer-open .sidebar a:nth-child(1) { animation-delay: 0.05s; }
-.mobile-drawer.drawer-open .sidebar a:nth-child(2) { animation-delay: 0.10s; }
-.mobile-drawer.drawer-open .sidebar a:nth-child(3) { animation-delay: 0.15s; }
-.mobile-drawer.drawer-open .sidebar a:nth-child(4) { animation-delay: 0.20s; }
-.mobile-drawer.drawer-open .sidebar a:nth-child(5) { animation-delay: 0.25s; }
-.mobile-drawer.drawer-open .sidebar a:nth-child(6) { animation-delay: 0.30s; }
-.mobile-drawer.drawer-open .sidebar a:nth-child(7) { animation-delay: 0.35s; }
-.mobile-drawer.drawer-open .sidebar a:nth-child(8) { animation-delay: 0.40s; }
-.mobile-drawer.drawer-open .sidebar a:nth-child(9) { animation-delay: 0.45s; }
-.mobile-drawer.drawer-open .sidebar a:nth-child(10) { animation-delay: 0.50s; }
-}
