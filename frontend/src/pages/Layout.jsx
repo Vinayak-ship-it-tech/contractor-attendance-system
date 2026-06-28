@@ -83,9 +83,7 @@ function Layout({ children }) {
   return (
     <div className={menuOpen ? "layout-container menu-open" : "layout-container"}>
       <aside className="mobile-drawer">
-        <div className="mobile-drawer-scroll">
-          <Sidebar />
-        </div>
+        <Sidebar />
       </aside>
 
       <div className="desktop-sidebar">
@@ -100,7 +98,7 @@ function Layout({ children }) {
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
       >
-        <div className="mobile-page-scroll">{children}</div>
+        {children}
       </main>
     </div>
   );
