@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Sidebar from "./Sidebar";
 import "./Layout.css";
 
@@ -6,23 +6,41 @@ function Layout({ children }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dragX, setDragX] = useState(0);
   const [dragging, setDragging] = useState(false);
+  const [maxSlide, setMaxSlide] = useState(0);
 
   const startX = useRef(0);
   const latestX = useRef(0);
   const rafId = useRef(null);
 
-  const maxSlide = window.innerWidth * 0.78;
+  useEffect(() => {
+    const updateSize = () => {
+      if (window.innerWidth <= 768) {
+        setMaxSlide(window.innerWidth * 0.78);
+        document.body.classList.add("mobile-layout-active");
+      } else {
+        setMenuOpen(false);
+        setDragX(0);
+        setMaxSlide(0);
+        document.body.classList.remove("mobile-layout-active");
+      }
+    };
+
+    updateSize();
+    window.addEventListener("resize", updateSize);
+
+    return () => {
+      window.removeEventListener("resize", updateSize);
+      document.body.classList.remove("mobile-layout-active");
+    };
+  }, []);
 
   const updateDrag = (value) => {
     if (rafId.current) cancelAnimationFrame(rafId.current);
-    rafId.current = requestAnimationFrame(() => {
-      setDragX(value);
-    });
+    rafId.current = requestAnimationFrame(() => setDragX(value));
   };
 
   const handlePointerDown = (e) => {
     if (window.innerWidth > 768) return;
-
     startX.current = e.clientX;
     latestX.current = menuOpen ? maxSlide : 0;
     setDragging(true);
@@ -32,14 +50,9 @@ function Layout({ children }) {
     if (!dragging || window.innerWidth > 768) return;
 
     let moveX = e.clientX - startX.current;
+    if (menuOpen) moveX = maxSlide + moveX;
 
-    if (menuOpen) {
-      moveX = maxSlide + moveX;
-    }
-
-    if (moveX < 0) moveX = 0;
-    if (moveX > maxSlide) moveX = maxSlide;
-
+    moveX = Math.max(0, Math.min(moveX, maxSlide));
     latestX.current = moveX;
     updateDrag(moveX);
   };
@@ -59,21 +72,18 @@ function Layout({ children }) {
   };
 
   const currentX = dragging ? dragX : menuOpen ? maxSlide : 0;
-  const progress = Math.min(currentX / maxSlide, 1);
+  const progress = maxSlide ? Math.min(currentX / maxSlide, 1) : 0;
   const eased = 1 - Math.pow(1 - progress, 2.6);
 
   const pageStyle = {
     transform: `translate3d(${currentX}px, 0, 0) scale(${
       1 - eased * 0.1
     }) rotateY(${-eased * 4}deg)`,
-
     borderRadius: `${eased * 34}px 0 0 ${eased * 34}px`,
-
     boxShadow:
       currentX > 5
         ? `-30px 0 70px rgba(0,0,0,${0.16 + eased * 0.32})`
         : "none",
-
     transition: dragging
       ? "none"
       : "transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.75s ease, box-shadow 0.75s ease",
@@ -81,11 +91,9 @@ function Layout({ children }) {
 
   return (
     <div className={menuOpen ? "layout-container menu-open" : "layout-container"}>
-      <aside className="mobile-drawer">
-        <div className="mobile-sidebar-fixed">
-          <Sidebar />
-        </div>
-      </aside>
+      <div className="mobile-sidebar-layer">
+        <Sidebar />
+      </div>
 
       <aside className="desktop-sidebar">
         <Sidebar />
