@@ -15,15 +15,11 @@ function Layout({ children }) {
 
   const updateDrag = (value) => {
     if (rafId.current) cancelAnimationFrame(rafId.current);
-
-    rafId.current = requestAnimationFrame(() => {
-      setDragX(value);
-    });
+    rafId.current = requestAnimationFrame(() => setDragX(value));
   };
 
   const handlePointerDown = (e) => {
     if (window.innerWidth > 768) return;
-
     startX.current = e.clientX;
     latestX.current = menuOpen ? maxSlide : 0;
     setDragging(true);
@@ -34,14 +30,10 @@ function Layout({ children }) {
 
     let moveX = e.clientX - startX.current;
 
-    if (menuOpen) {
-      moveX = maxSlide + moveX;
-    }
+    if (menuOpen) moveX = maxSlide + moveX;
 
     if (moveX < 0) moveX = 0;
-    if (moveX > maxSlide) {
-      moveX = maxSlide + (moveX - maxSlide) * 0.18;
-    }
+    if (moveX > maxSlide) moveX = maxSlide;
 
     latestX.current = moveX;
     updateDrag(moveX);
@@ -61,6 +53,10 @@ function Layout({ children }) {
     }
   };
 
+  const stopSidebarScroll = (e) => {
+    e.preventDefault();
+  };
+
   const currentX = dragging ? dragX : menuOpen ? maxSlide : 0;
   const progress = Math.min(currentX / maxSlide, 1);
   const eased = 1 - Math.pow(1 - progress, 2.6);
@@ -73,7 +69,8 @@ function Layout({ children }) {
   const pageStyle = {
     transform: `translate3d(${currentX}px, 0, 0) scale(${scale}) rotateY(${rotate}deg)`,
     borderRadius: `${radius}px 0 0 ${radius}px`,
-    boxShadow: currentX > 5 ? `-32px 0 75px rgba(0,0,0,${shadow})` : "none",
+    boxShadow:
+      currentX > 5 ? `-32px 0 75px rgba(0,0,0,${shadow})` : "none",
     transition: dragging
       ? "none"
       : "transform 0.78s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.78s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.78s ease",
@@ -81,10 +78,13 @@ function Layout({ children }) {
 
   return (
     <div className={menuOpen ? "layout-container menu-open" : "layout-container"}>
-
-      <aside className="mobile-drawer">
+      <div
+        className="mobile-drawer"
+        onTouchMove={stopSidebarScroll}
+        onWheel={stopSidebarScroll}
+      >
         <Sidebar />
-      </aside>
+      </div>
 
       <div className="desktop-sidebar">
         <Sidebar />
@@ -100,7 +100,6 @@ function Layout({ children }) {
       >
         {children}
       </main>
-
     </div>
   );
 }

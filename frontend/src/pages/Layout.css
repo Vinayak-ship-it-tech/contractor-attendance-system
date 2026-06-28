@@ -119,96 +119,90 @@ button:hover {
    MOBILE CINEMATIC DRAWER
 ========================== */
 @media (max-width: 768px) {
+  html,
+  body,
+  #root {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden !important;
+  }
 
   .layout-container {
     display: block !important;
     position: relative;
+    width: 100%;
     min-height: 100vh;
-    overflow-x: hidden;
-    perspective: 1500px;
     background: #064e3b;
+    overflow-x: hidden !important;
+    perspective: 1500px;
   }
 
   .desktop-sidebar {
     display: none !important;
   }
 
-  /* SIDEBAR */
   .mobile-drawer {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 76%;
-  height: 100vh !important;
+    display: block !important;
+    position: fixed !important;
+    inset: 0 auto 0 0 !important;
+    width: 78vw !important;
+    height: 100dvh !important;
+    z-index: 1 !important;
+    background: linear-gradient(180deg, #0f7a4f, #065f46, #064e3b) !important;
+    overflow: hidden !important;
+    overscroll-behavior: none !important;
+    touch-action: none !important;
+  }
 
-  z-index: 1;
-
-  overflow: hidden !important;
-
-  background: linear-gradient(
-    180deg,
-    #0f7a4f 0%,
-    #065f46 45%,
-    #064e3b 100%
-  );
-
-  box-shadow: none;
-}
-
-  /* REMOVE ALL GLOW EFFECTS */
   .mobile-drawer::before,
   .mobile-drawer::after {
     display: none !important;
   }
 
   .mobile-drawer .sidebar {
-  position: fixed !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 78vw !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    min-height: 100dvh !important;
+    overflow: hidden !important;
+    overscroll-behavior: none !important;
+    touch-action: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 70px 18px 20px !important;
+    transform: none !important;
+  }
 
-  top: 0;
-  left: 0;
+  .mobile-drawer .sidebar * {
+    overflow: visible !important;
+  }
 
-  width: 76%;
-  height: 100vh;
+  .main-content {
+    position: relative !important;
+    z-index: 10 !important;
+    margin-left: 0 !important;
+    width: 100% !important;
+    min-height: 100vh;
+    background: #f4f7fc;
+    padding: 82px 14px 20px !important;
+    overflow-x: auto;
+    overflow-y: visible;
+    transform-origin: left center;
+    will-change: transform;
+    backface-visibility: hidden;
+    touch-action: pan-y;
+  }
 
-  overflow: hidden !important;
-
-  background: transparent !important;
-
-  box-shadow: none !important;
-  border: none !important;
-
-  padding: 70px 18px 20px !important;
-}
-
-  /* MAIN PAGE */
- .main-content {
-  position: relative;
-  z-index: 10;
-
-  width: 100%;
-  min-height: 100vh;
-
-  overflow-y: auto;
-  overflow-x: auto;
-
-  background: #f4f7fc;
-
-  margin-left: 0 !important;
-  padding: 82px 14px 20px !important;
-
-  transform-origin: left center;
-
-  touch-action: pan-y;
-  will-change: transform;
-}
-  /* CARDS */
   .card,
   .dash-card,
   .worker-card {
     border-radius: 20px;
-    box-shadow:
-      0 12px 35px rgba(0,0,0,0.08),
-      0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.08);
   }
 
   .dashboard-grid,
@@ -218,21 +212,5 @@ button:hover {
 
   table {
     min-width: 700px;
-  }
-
-  /* MENU ANIMATION */
-  .layout-container.menu-open .mobile-drawer .sidebar {
-    animation: sidebarReveal 0.45s ease forwards;
-  }
-
-  @keyframes sidebarReveal {
-    from {
-      opacity: 0;
-      transform: translateX(-15px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
   }
 }
