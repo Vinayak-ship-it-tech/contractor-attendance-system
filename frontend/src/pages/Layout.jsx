@@ -53,42 +53,35 @@ function Layout({ children }) {
     }
   };
 
-  const stopSidebarScroll = (e) => {
-    e.preventDefault();
-  };
-
   const currentX = dragging ? dragX : menuOpen ? maxSlide : 0;
   const progress = Math.min(currentX / maxSlide, 1);
   const eased = 1 - Math.pow(1 - progress, 2.6);
 
-  const scale = 1 - eased * 0.105;
+  const scale = 1 - eased * 0.1;
   const rotate = -eased * 4;
   const radius = eased * 34;
-  const shadow = 0.16 + eased * 0.36;
+  const shadow = 0.16 + eased * 0.32;
 
   const pageStyle = {
     transform: `translate3d(${currentX}px, 0, 0) scale(${scale}) rotateY(${rotate}deg)`,
     borderRadius: `${radius}px 0 0 ${radius}px`,
     boxShadow:
-      currentX > 5 ? `-32px 0 75px rgba(0,0,0,${shadow})` : "none",
+      currentX > 5 ? `-30px 0 70px rgba(0,0,0,${shadow})` : "none",
     transition: dragging
       ? "none"
-      : "transform 0.78s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.78s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.78s ease",
+      : "transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.75s ease, box-shadow 0.75s ease",
   };
 
   return (
     <div className={menuOpen ? "layout-container menu-open" : "layout-container"}>
-      <div
-        className="mobile-drawer"
-        onTouchMove={stopSidebarScroll}
-        onWheel={stopSidebarScroll}
-      >
-        <Sidebar />
-      </div>
 
-      <div className="desktop-sidebar">
+      <aside className="mobile-drawer">
         <Sidebar />
-      </div>
+      </aside>
+
+      <aside className="desktop-sidebar">
+        <Sidebar />
+      </aside>
 
       <main
         className="main-content"
@@ -98,8 +91,11 @@ function Layout({ children }) {
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
       >
-        {children}
+        <div className="mobile-page-scroll">
+          {children}
+        </div>
       </main>
+
     </div>
   );
 }
