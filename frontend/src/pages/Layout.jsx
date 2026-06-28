@@ -15,7 +15,8 @@ function Layout({ children }) {
   useEffect(() => {
     const updateSize = () => {
       if (window.innerWidth <= 768) {
-        setMaxSlide(window.innerWidth * 0.78);
+        const slide = window.innerWidth * 0.86;
+        setMaxSlide(slide);
         document.body.classList.add("mobile-layout-active");
       } else {
         setMenuOpen(false);
@@ -76,23 +77,23 @@ function Layout({ children }) {
   const eased = 1 - Math.pow(1 - progress, 2.6);
 
   const pageStyle = {
-    transform: `translate3d(${currentX}px, 0, 0) scale(${
-      1 - eased * 0.1
-    }) rotateY(${-eased * 4}deg)`,
-    borderRadius: `${eased * 34}px 0 0 ${eased * 34}px`,
+    transform: `translate3d(${currentX}px, 0, 0) scale(${1 - eased * 0.08}) rotateY(${-eased * 3}deg)`,
+    borderRadius: `${eased * 30}px 0 0 ${eased * 30}px`,
     boxShadow:
       currentX > 5
-        ? `-30px 0 70px rgba(0,0,0,${0.16 + eased * 0.32})`
+        ? `-30px 0 70px rgba(0,0,0,${0.18 + eased * 0.28})`
         : "none",
     transition: dragging
       ? "none"
-      : "transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.75s ease, box-shadow 0.75s ease",
+      : "transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.7s ease, box-shadow 0.7s ease",
   };
 
   return (
     <div className={menuOpen ? "layout-container menu-open" : "layout-container"}>
       <div className="mobile-sidebar-layer">
-        <Sidebar />
+        <div className="mobile-sidebar-scroll">
+          <Sidebar />
+        </div>
       </div>
 
       <aside className="desktop-sidebar">
