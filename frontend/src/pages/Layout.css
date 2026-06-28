@@ -237,3 +237,71 @@ button:hover {
     min-width: 700px;
   }
 }
+
+@media (max-width: 768px) {
+  html,
+  body,
+  #root {
+    height: 100%;
+    overflow: hidden !important;
+  }
+
+  .layout-container {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    overflow: hidden !important;
+  }
+
+  .mobile-drawer {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 78vw !important;
+    height: 100dvh !important;
+    overflow: hidden !important;
+    z-index: 1 !important;
+    background: linear-gradient(180deg, #0f7a4f, #065f46, #064e3b) !important;
+  }
+
+  .mobile-sidebar-fixed {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 78vw !important;
+    height: 100dvh !important;
+    overflow: hidden !important;
+    transform: translateY(0) !important;
+  }
+
+  .mobile-sidebar-fixed .sidebar {
+    position: static !important;
+    width: 100% !important;
+    height: 100dvh !important;
+    overflow: hidden !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 70px 18px 20px !important;
+    transform: translateY(0) !important;
+  }
+
+  .main-content {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    overflow: hidden !important;
+    margin-left: 0 !important;
+    padding: 0 !important;
+    z-index: 10 !important;
+  }
+
+  .mobile-page-scroll {
+    height: 100dvh !important;
+    overflow-y: auto !important;
+    overflow-x: auto !important;
+    padding: 82px 14px 20px !important;
+    -webkit-overflow-scrolling: touch;
+  }
+}

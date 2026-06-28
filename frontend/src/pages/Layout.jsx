@@ -82,7 +82,9 @@ function Layout({ children }) {
   return (
     <div className={menuOpen ? "layout-container menu-open" : "layout-container"}>
       <aside className="mobile-drawer">
-        <Sidebar />
+        <div className="mobile-sidebar-fixed">
+          <Sidebar />
+        </div>
       </aside>
 
       <aside className="desktop-sidebar">
