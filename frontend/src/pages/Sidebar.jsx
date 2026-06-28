@@ -57,9 +57,9 @@ useEffect(() => {
 
   return (
     <aside className="sidebar">
-      <div className="brand">
-        <div className="brand-logo">LGE</div>
-        <div>
+      <div className="brand animated-brand">
+        <div className="brand-logo brand-logo-animate">LGE</div>
+        <div className="brand-text">
           <h2>LAKSHMI GANAPATHI</h2>
           <p>ENTERPRISES</p>
         </div>

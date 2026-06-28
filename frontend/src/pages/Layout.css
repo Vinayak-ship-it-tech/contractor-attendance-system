@@ -355,18 +355,7 @@ button:hover {
   .mobile-drawer .sidebar * {
   animation: none;
 }
-.mobile-drawer .animated-brand {
-  opacity: 0;
-  transform: translateY(-20px) scale(0.92);
-}
 
-.mobile-drawer.drawer-open .animated-brand {
-  animation: brandEnter 0.75s ease forwards;
-}
-
-.mobile-drawer.drawer-open .brand-logo-animate {
-  animation: logoPop 0.75s ease forwards;
-}
 
 .mobile-drawer.drawer-open .sidebar a,
 .mobile-drawer.drawer-open .sidebar button,
@@ -389,6 +378,18 @@ button:hover {
 .mobile-drawer.drawer-open .sidebar a:nth-of-type(9) { animation-delay: 0.61s; }
 .mobile-drawer.drawer-open .sidebar a:nth-of-type(10) { animation-delay: 0.68s; }
 }
+.mobile-drawer .animated-brand {
+  opacity: 0;
+  transform: translateY(-20px) scale(0.92);
+}
+
+.mobile-drawer.drawer-open .animated-brand {
+  animation: brandEnter 0.75s ease forwards;
+}
+
+.mobile-drawer.drawer-open .brand-logo-animate {
+  animation: logoPop 0.75s ease forwards;
+}
 
 
 }
@@ -403,29 +404,29 @@ button:hover {
     transform: translateX(0);
   }
 }
-@keyframes brandEnter {
-  from {
+@keyframes brandEnterMobile {
+  0% {
     opacity: 0;
-    transform: translateY(-20px) scale(0.92);
+    transform: translateY(-30px) scale(0.85);
   }
 
-  to {
+  100% {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
 }
 
-@keyframes logoPop {
+@keyframes logoPopMobile {
   0% {
-    transform: scale(0.6) rotate(-10deg);
+    transform: scale(0.4) rotate(-15deg);
   }
 
   60% {
-    transform: scale(1.15) rotate(4deg);
+    transform: scale(1.18) rotate(6deg);
   }
 
   100% {
-    transform: scale(1) rotate(0);
+    transform: scale(1) rotate(0deg);
   }
 }
 
