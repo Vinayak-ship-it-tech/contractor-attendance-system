@@ -406,7 +406,7 @@
   font-size: 12px;
   font-weight: 600;
 }
-
+/*
 @media (max-width: 768px) {
   .sidebar {
     position: fixed !important;

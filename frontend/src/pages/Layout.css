@@ -176,3 +176,61 @@ button:hover {
     min-width: 700px;
   }
 }
+@media (max-width: 768px) {
+  .layout-container {
+    position: relative !important;
+    display: block !important;
+    min-height: 100vh !important;
+    height: auto !important;
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
+    background: linear-gradient(180deg, #0f7a4f, #064e3b) !important;
+  }
+
+  .desktop-sidebar {
+    display: none !important;
+  }
+
+  .mobile-drawer {
+    display: block !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 72vw !important;
+    height: 100vh !important;
+    z-index: 1 !important;
+    padding: 75px 18px 25px !important;
+    overflow-y: auto !important;
+    background: linear-gradient(180deg, #0f7a4f, #064e3b) !important;
+  }
+
+  .mobile-drawer .sidebar {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .main-content {
+    position: relative !important;
+    z-index: 5 !important;
+    margin-left: 0 !important;
+    width: 100% !important;
+    min-height: 100vh !important;
+    height: auto !important;
+    background: #f4f7fc !important;
+    padding: 80px 14px 20px !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    transform-origin: left center !important;
+    will-change: transform !important;
+    backface-visibility: hidden !important;
+  }
+}
