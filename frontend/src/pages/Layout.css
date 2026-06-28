@@ -180,3 +180,46 @@ button:hover {
     -webkit-overflow-scrolling: touch;
   }
 }
+
+@media (max-width: 768px) {
+  .mobile-sidebar-layer {
+    overflow: hidden !important;
+  }
+
+  .mobile-sidebar-layer .sidebar {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 78vw !important;
+    height: 100dvh !important;
+    overflow: hidden !important;
+  }
+
+  .mobile-sidebar-layer .brand {
+    height: 82px !important;
+    min-height: 82px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .mobile-sidebar-layer .menu {
+    flex: 1 1 auto !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding: 10px 12px 90px !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .mobile-sidebar-layer .admin-footer {
+    position: absolute !important;
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 10px !important;
+    margin: 0 !important;
+    z-index: 5 !important;
+  }
+
+  .mobile-sidebar-layer .menu::-webkit-scrollbar {
+    display: none;
+  }
+}
