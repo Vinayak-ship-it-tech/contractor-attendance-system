@@ -107,6 +107,7 @@ button:hover {
     height: 100dvh !important;
     overflow: hidden !important;
     background: #052e25 !important;
+    transform-style: preserve-3d;
   }
 
   .desktop-sidebar {
@@ -162,6 +163,7 @@ button:hover {
     overflow: hidden !important;
     z-index: 50 !important;
     background: #f4f7fc !important;
+    transform-style: preserve-3d;
   }
 
   .mobile-page-scroll {

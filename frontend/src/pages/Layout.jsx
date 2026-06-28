@@ -82,15 +82,17 @@ function Layout({ children }) {
   const eased = 1 - Math.pow(1 - progress, 2.4);
 
   const pageStyle = {
-    transform: `translate3d(${currentX}px, 0, 0) scale(${1 - eased * 0.08}) rotateY(${-eased * 3}deg)`,
-    borderRadius: `${eased * 30}px 0 0 ${eased * 30}px`,
+  transform: `translate3d(${currentX}px, 0, 0) scale(${
+    1 - eased * 0.1
+  }) rotateY(${-eased * 4}deg)`,
+    borderRadius: `${eased * 34}px 0 0 ${eased * 34}px`,
     boxShadow:
       currentX > 5
-        ? `-28px 0 70px rgba(0,0,0,${0.18 + eased * 0.28})`
+        ? `-30px 0 80px rgba(0,0,0,${0.18 + eased * 0.36})`
         : "none",
     transition: dragging
       ? "none"
-      : "transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.65s ease, box-shadow 0.65s ease",
+      : "transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.75s ease, box-shadow 0.75s ease",
   };
 
   return (
