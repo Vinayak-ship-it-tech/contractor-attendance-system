@@ -121,13 +121,139 @@ button:hover {
 /* ===============================
    MOBILE FIXED SIDEBAR + SCROLL PAGE
 ================================ */
+.layout-container {
+  display: flex;
+  min-height: 100vh;
+  background: #f4f7fc;
+}
+
+.desktop-sidebar {
+  display: block;
+}
+
+.mobile-sidebar-layer {
+  display: none;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 285px;
+  padding: 30px;
+  overflow-x: auto;
+}
+
+.mobile-page-scroll {
+  width: 100%;
+}
+
+.page {
+  width: 100%;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  gap: 20px;
+}
+
+.dash-card {
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+.dash-card:hover {
+  transform: translateY(-5px);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+  gap: 20px;
+}
+
+.worker-card {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.worker-card img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.active {
+  color: green;
+}
+
+.inactive {
+  color: red;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  margin-top: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+table th {
+  background: #2563eb;
+  color: white;
+  padding: 12px;
+}
+
+table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  margin: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+/* MOBILE FINAL FIX */
 @media (max-width: 768px) {
-  html,
-  body,
+  html.app-mobile-lock,
+  body.app-mobile-lock,
   #root {
     width: 100%;
     height: 100%;
     overflow: hidden !important;
+  }
+
+  body.app-mobile-lock {
+    position: fixed !important;
+    inset: 0 !important;
   }
 
   .layout-container {
@@ -145,7 +271,7 @@ button:hover {
     display: none !important;
   }
 
-  .mobile-drawer {
+  .mobile-sidebar-layer {
     display: block !important;
     position: fixed !important;
     top: 0 !important;
@@ -157,66 +283,52 @@ button:hover {
     background: linear-gradient(180deg, #0f7a4f, #065f46, #064e3b) !important;
   }
 
-  .mobile-drawer::before,
-  .mobile-drawer::after {
-    display: none !important;
-  }
-
-  .mobile-drawer .sidebar {
+  .mobile-sidebar-inner {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
-
     width: 78vw !important;
     height: 100vh !important;
-    min-height: 100vh !important;
-
     overflow: hidden !important;
+    transform: translate3d(0, 0, 0) !important;
+  }
 
+  .mobile-sidebar-inner .sidebar {
+    position: static !important;
+    width: 100% !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
+    overflow: hidden !important;
     background: transparent !important;
     box-shadow: none !important;
     border: none !important;
-
     padding: 70px 18px 20px !important;
     margin: 0 !important;
-
     transform: none !important;
   }
 
   .main-content {
     position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-
+    inset: 0 !important;
     z-index: 10 !important;
-
     width: 100vw !important;
     height: 100vh !important;
     min-height: 100vh !important;
-
     margin-left: 0 !important;
     padding: 0 !important;
-
     background: #f4f7fc;
-
     overflow: hidden !important;
-
     transform-origin: left center;
     will-change: transform;
     backface-visibility: hidden;
-
-    touch-action: pan-y;
   }
 
   .mobile-page-scroll {
     width: 100% !important;
     height: 100vh !important;
-
     overflow-y: auto !important;
     overflow-x: auto !important;
-
     padding: 82px 14px 20px !important;
-
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
   }
@@ -235,73 +347,5 @@ button:hover {
 
   table {
     min-width: 700px;
-  }
-}
-
-@media (max-width: 768px) {
-  html,
-  body,
-  #root {
-    height: 100%;
-    overflow: hidden !important;
-  }
-
-  .layout-container {
-    position: fixed !important;
-    inset: 0 !important;
-    width: 100vw !important;
-    height: 100dvh !important;
-    overflow: hidden !important;
-  }
-
-  .mobile-drawer {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 78vw !important;
-    height: 100dvh !important;
-    overflow: hidden !important;
-    z-index: 1 !important;
-    background: linear-gradient(180deg, #0f7a4f, #065f46, #064e3b) !important;
-  }
-
-  .mobile-sidebar-fixed {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 78vw !important;
-    height: 100dvh !important;
-    overflow: hidden !important;
-    transform: translateY(0) !important;
-  }
-
-  .mobile-sidebar-fixed .sidebar {
-    position: static !important;
-    width: 100% !important;
-    height: 100dvh !important;
-    overflow: hidden !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    padding: 70px 18px 20px !important;
-    transform: translateY(0) !important;
-  }
-
-  .main-content {
-    position: fixed !important;
-    inset: 0 !important;
-    width: 100vw !important;
-    height: 100dvh !important;
-    overflow: hidden !important;
-    margin-left: 0 !important;
-    padding: 0 !important;
-    z-index: 10 !important;
-  }
-
-  .mobile-page-scroll {
-    height: 100dvh !important;
-    overflow-y: auto !important;
-    overflow-x: auto !important;
-    padding: 82px 14px 20px !important;
-    -webkit-overflow-scrolling: touch;
   }
 }

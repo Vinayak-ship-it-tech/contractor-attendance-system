@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Sidebar from "./Sidebar";
 import "./Layout.css";
 
@@ -11,13 +11,21 @@ function Layout({ children }) {
   const latestX = useRef(0);
   const rafId = useRef(null);
 
+  useEffect(() => {
+    document.documentElement.classList.add("app-mobile-lock");
+    document.body.classList.add("app-mobile-lock");
+
+    return () => {
+      document.documentElement.classList.remove("app-mobile-lock");
+      document.body.classList.remove("app-mobile-lock");
+    };
+  }, []);
+
   const maxSlide = window.innerWidth * 0.78;
 
   const updateDrag = (value) => {
     if (rafId.current) cancelAnimationFrame(rafId.current);
-    rafId.current = requestAnimationFrame(() => {
-      setDragX(value);
-    });
+    rafId.current = requestAnimationFrame(() => setDragX(value));
   };
 
   const handlePointerDown = (e) => {
@@ -66,14 +74,11 @@ function Layout({ children }) {
     transform: `translate3d(${currentX}px, 0, 0) scale(${
       1 - eased * 0.1
     }) rotateY(${-eased * 4}deg)`,
-
     borderRadius: `${eased * 34}px 0 0 ${eased * 34}px`,
-
     boxShadow:
       currentX > 5
         ? `-30px 0 70px rgba(0,0,0,${0.16 + eased * 0.32})`
         : "none",
-
     transition: dragging
       ? "none"
       : "transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.75s ease, box-shadow 0.75s ease",
@@ -81,11 +86,11 @@ function Layout({ children }) {
 
   return (
     <div className={menuOpen ? "layout-container menu-open" : "layout-container"}>
-      <aside className="mobile-drawer">
-        <div className="mobile-sidebar-fixed">
+      <div className="mobile-sidebar-layer">
+        <div className="mobile-sidebar-inner">
           <Sidebar />
         </div>
-      </aside>
+      </div>
 
       <aside className="desktop-sidebar">
         <Sidebar />
