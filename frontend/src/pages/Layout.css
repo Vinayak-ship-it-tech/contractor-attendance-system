@@ -135,26 +135,25 @@ button:hover {
 
   /* SIDEBAR */
   .mobile-drawer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 76%;
-    height: 100vh;
-    z-index: 1;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 76%;
+  height: 100vh !important;
 
-    padding: 70px 18px 20px;
+  z-index: 1;
 
-    overflow: hidden !important;
+  overflow: hidden !important;
 
-    background: linear-gradient(
-      180deg,
-      #0f7a4f 0%,
-      #065f46 45%,
-      #064e3b 100%
-    );
+  background: linear-gradient(
+    180deg,
+    #0f7a4f 0%,
+    #065f46 45%,
+    #064e3b 100%
+  );
 
-    box-shadow: none;
-  }
+  box-shadow: none;
+}
 
   /* REMOVE ALL GLOW EFFECTS */
   .mobile-drawer::before,
@@ -163,44 +162,45 @@ button:hover {
   }
 
   .mobile-drawer .sidebar {
-    position: static !important;
-    width: 100% !important;
-    height: auto !important;
+  position: fixed !important;
 
-    background: transparent !important;
+  top: 0;
+  left: 0;
 
-    overflow: hidden !important;
+  width: 76%;
+  height: 100vh;
 
-    box-shadow: none !important;
-    border: none !important;
+  overflow: hidden !important;
 
-    padding: 0 !important;
-  }
+  background: transparent !important;
+
+  box-shadow: none !important;
+  border: none !important;
+
+  padding: 70px 18px 20px !important;
+}
 
   /* MAIN PAGE */
-  .main-content {
-    position: relative;
-    z-index: 10;
+ .main-content {
+  position: relative;
+  z-index: 10;
 
-    margin-left: 0 !important;
-    width: 100% !important;
-    min-height: 100vh;
+  width: 100%;
+  min-height: 100vh;
 
-    background: #f4f7fc;
+  overflow-y: auto;
+  overflow-x: auto;
 
-    padding: 82px 14px 20px !important;
+  background: #f4f7fc;
 
-    overflow-x: auto;
+  margin-left: 0 !important;
+  padding: 82px 14px 20px !important;
 
-    transform-origin: left center;
+  transform-origin: left center;
 
-    will-change: transform;
-
-    backface-visibility: hidden;
-
-    touch-action: pan-y;
-  }
-
+  touch-action: pan-y;
+  will-change: transform;
+}
   /* CARDS */
   .card,
   .dash-card,
