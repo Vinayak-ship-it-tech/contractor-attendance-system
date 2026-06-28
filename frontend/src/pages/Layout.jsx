@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Sidebar from "./Sidebar";
 import "./Layout.css";
 
@@ -11,7 +11,17 @@ function Layout({ children }) {
   const latestX = useRef(0);
   const rafId = useRef(null);
 
-  const maxSlide = window.innerWidth * 0.76;
+  useEffect(() => {
+    document.documentElement.classList.add("app-mobile-lock");
+    document.body.classList.add("app-mobile-lock");
+
+    return () => {
+      document.documentElement.classList.remove("app-mobile-lock");
+      document.body.classList.remove("app-mobile-lock");
+    };
+  }, []);
+
+  const maxSlide = window.innerWidth * 0.78;
 
   const updateDrag = (value) => {
     if (rafId.current) cancelAnimationFrame(rafId.current);
@@ -20,6 +30,7 @@ function Layout({ children }) {
 
   const handlePointerDown = (e) => {
     if (window.innerWidth > 768) return;
+
     startX.current = e.clientX;
     latestX.current = menuOpen ? maxSlide : 0;
     setDragging(true);
@@ -30,10 +41,12 @@ function Layout({ children }) {
 
     let moveX = e.clientX - startX.current;
 
-    if (menuOpen) moveX = maxSlide + moveX;
+    if (menuOpen) {
+      moveX = maxSlide + moveX;
+    }
 
     if (moveX < 0) moveX = 0;
-    if (moveX > maxSlide) moveX = maxSlide + (moveX - maxSlide) * 0.18;
+    if (moveX > maxSlide) moveX = maxSlide;
 
     latestX.current = moveX;
     updateDrag(moveX);
@@ -57,32 +70,31 @@ function Layout({ children }) {
   const progress = Math.min(currentX / maxSlide, 1);
   const eased = 1 - Math.pow(1 - progress, 2.6);
 
-  const scale = 1 - eased * 0.105;
-  const rotate = -eased * 6;
-  const radius = eased * 42;
-  const shadow = 0.16 + eased * 0.36;
-
   const pageStyle = {
-    transform: `translate3d(${currentX}px, 0, 0) scale(${scale}) rotateY(${rotate}deg)`,
-    borderRadius: `${radius}px 0 0 ${radius}px`,
+    transform: `translate3d(${currentX}px, 0, 0) scale(${
+      1 - eased * 0.1
+    }) rotateY(${-eased * 4}deg)`,
+    borderRadius: `${eased * 34}px 0 0 ${eased * 34}px`,
     boxShadow:
-      currentX > 5 ? `-32px 0 75px rgba(0,0,0,${shadow})` : "none",
+      currentX > 5
+        ? `-30px 0 70px rgba(0,0,0,${0.16 + eased * 0.32})`
+        : "none",
     transition: dragging
       ? "none"
-      : "transform 0.78s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.78s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.78s ease",
+      : "transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.75s ease, box-shadow 0.75s ease",
   };
 
   return (
     <div className={menuOpen ? "layout-container menu-open" : "layout-container"}>
-      <aside className="mobile-drawer">
-        <div className="mobile-drawer-scroll">
+      <div className="mobile-sidebar-layer">
+        <div className="mobile-sidebar-inner">
           <Sidebar />
         </div>
-      </aside>
-
-      <div className="desktop-sidebar">
-        <Sidebar />
       </div>
+
+      <aside className="desktop-sidebar">
+        <Sidebar />
+      </aside>
 
       <main
         className="main-content"
