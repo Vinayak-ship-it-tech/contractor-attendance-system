@@ -11,7 +11,7 @@ function Layout({ children }) {
   const latestX = useRef(0);
   const rafId = useRef(null);
 
-  const maxSlide = window.innerWidth * 0.76;
+  const maxSlide = window.innerWidth * 0.78;
 
   const updateDrag = (value) => {
     if (rafId.current) cancelAnimationFrame(rafId.current);
@@ -66,8 +66,8 @@ function Layout({ children }) {
   const eased = 1 - Math.pow(1 - progress, 2.6);
 
   const scale = 1 - eased * 0.105;
-  const rotate = -eased * 6;
-  const radius = eased * 42;
+  const rotate = -eased * 4;
+  const radius = eased * 34;
   const shadow = 0.16 + eased * 0.36;
 
   const pageStyle = {
