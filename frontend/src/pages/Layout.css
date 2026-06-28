@@ -352,7 +352,9 @@ button:hover {
   table {
     min-width: 700px;
   }
-  .mobile-drawer .sidebar * {
+  .mobile-drawer .sidebar a,
+.mobile-drawer .sidebar button,
+.mobile-drawer .sidebar li {
   animation: none;
 }
 
@@ -423,6 +425,52 @@ button:hover {
 
   60% {
     transform: scale(1.18) rotate(6deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-drawer .brand.animated-brand {
+    opacity: 0 !important;
+    transform: translateY(-40px) scale(0.75) !important;
+  }
+
+  .mobile-drawer.drawer-open .brand.animated-brand {
+    animation: brandDropMobile 1s ease forwards !important;
+  }
+
+  .mobile-drawer.drawer-open .brand-logo.brand-logo-animate {
+    animation: logoBounceMobile 1s ease forwards !important;
+  }
+}
+
+@keyframes brandDropMobile {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.75);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateY(8px) scale(1.08);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes logoBounceMobile {
+  0% {
+    transform: scale(0.3) rotate(-25deg);
+  }
+
+  60% {
+    transform: scale(1.25) rotate(10deg);
   }
 
   100% {
