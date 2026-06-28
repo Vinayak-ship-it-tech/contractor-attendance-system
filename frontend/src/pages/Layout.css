@@ -17,11 +17,6 @@
   margin-left: 285px;
   padding: 30px;
   overflow-x: auto;
-  background: #f4f7fc;
-}
-
-.mobile-page-scroll {
-  width: 100%;
 }
 
 .page {
@@ -36,15 +31,13 @@
   margin-bottom: 20px;
 }
 
-.dashboard-grid,
-.grid {
+.dashboard-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
   gap: 20px;
 }
 
-.dash-card,
-.worker-card {
+.dash-card {
   background: white;
   border-radius: 15px;
   padding: 25px;
@@ -57,11 +50,34 @@
   transform: translateY(-5px);
 }
 
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+  gap: 20px;
+}
+
+.worker-card {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
 .worker-card img {
   width: 120px;
   height: 120px;
   object-fit: cover;
   border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.active {
+  color: green;
+}
+
+.inactive {
+  color: red;
 }
 
 table {
@@ -98,23 +114,15 @@ button:hover {
   background: #1d4ed8;
 }
 
-/* MOBILE OLD EFFECT */
+/* MOBILE VIDEO STYLE */
 @media (max-width: 768px) {
-  html,
-  body,
-  #root {
-    width: 100%;
-    height: 100%;
-    overflow: hidden !important;
-  }
-
   .layout-container {
-    position: fixed !important;
-    inset: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    overflow: hidden !important;
-    background: linear-gradient(180deg, #0f5132, #064e3b) !important;
+    display: block !important;
+    position: relative;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #0f7a4f, #064e3b) !important;
+    overflow-x: hidden;
+    perspective: 1000px;
   }
 
   .desktop-sidebar {
@@ -124,88 +132,47 @@ button:hover {
   .mobile-drawer {
     display: block !important;
     position: fixed !important;
-    inset: 0 auto 0 0 !important;
-    width: 72vw !important;
-    height: 100vh !important;
-    z-index: 1 !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    background: linear-gradient(180deg, #0f5132, #064e3b) !important;
-    -webkit-overflow-scrolling: touch !important;
+    top: 0;
+    left: 0;
+    width: 72%;
+    height: 100vh;
+    z-index: 1;
+    background: linear-gradient(180deg, #0f7a4f, #064e3b) !important;
+    padding: 75px 18px 25px;
+    overflow-y: auto;
   }
 
   .mobile-drawer .sidebar {
-    position: relative !important;
-    width: 72vw !important;
-    height: auto !important;
-    min-height: 100vh !important;
-    overflow: visible !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
-  }
-
-  .mobile-drawer .brand {
-    border-bottom: none !important;
-  }
-
-  .mobile-drawer .menu {
-    height: auto !important;
-    max-height: none !important;
-    overflow: visible !important;
-    padding: 10px 18px 90px !important;
-  }
-
-  .mobile-drawer .menu a,
-  .mobile-drawer .menu button {
-    color: white !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    border-left: none !important;
-  }
-
-  .mobile-drawer .menu a:hover,
-  .mobile-drawer .menu button:hover,
-  .mobile-drawer .menu a.active {
-    background: rgba(255,255,255,0.14) !important;
-    transform: translateX(6px) !important;
-  }
-
-  .mobile-drawer .submenu {
-    border-left: 1px solid rgba(255,255,255,0.25) !important;
-  }
-
-  .mobile-drawer .admin-footer {
-    position: relative !important;
-    bottom: auto !important;
-    margin: 12px !important;
-    background: rgba(255,255,255,0.12) !important;
-  }
-
-  .main-content {
-    margin-left: 0 !important;
-    padding: 0 !important;
-    position: fixed !important;
-    inset: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    z-index: 5 !important;
-    background: #f8fafc !important;
-    transform-origin: center center !important;
-    will-change: transform !important;
-  }
-
-  .mobile-page-scroll {
+    position: static !important;
     width: 100% !important;
-    min-height: 100vh !important;
-    padding: 82px 14px 24px !important;
+    height: auto !important;
+    min-height: auto !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
+    padding: 0 !important;
   }
-}
 
-@media (max-width: 768px) {
   .main-content {
-    background: red !important;
+    position: relative;
+    z-index: 5;
+    margin-left: 0 !important;
+    width: 100% !important;
+    min-height: 100vh;
+    background: #f4f7fc;
+    padding: 80px 14px 20px !important;
+    overflow-x: auto;
+    transform-origin: left center;
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  .dashboard-grid,
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  table {
+    min-width: 700px;
   }
 }
