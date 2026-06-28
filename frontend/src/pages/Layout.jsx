@@ -78,7 +78,7 @@ function Layout({ children }) {
   return (
     <div className="layout-container">
 
-      <aside className="mobile-drawer">
+      <aside className={`mobile-drawer ${menuOpen ? "drawer-open" : ""}`}>
         <Sidebar />
       </aside>
 
