@@ -114,101 +114,57 @@ button:hover {
   background: #1d4ed8;
 }
 
-/* CINEMATIC MOBILE SIDEBAR */
-/* ==========================
-   MOBILE CINEMATIC DRAWER
-========================== */
+/* OLD MOBILE DRAWER EFFECT */
 @media (max-width: 768px) {
-
   .layout-container {
     display: block !important;
     position: relative;
     min-height: 100vh;
+    background: linear-gradient(180deg, #0f7a4f, #064e3b) !important;
     overflow-x: hidden;
-    perspective: 1500px;
-    background: #064e3b;
+    perspective: 1000px;
   }
 
   .desktop-sidebar {
     display: none !important;
   }
 
-  /* SIDEBAR */
   .mobile-drawer {
-    position: fixed;
+    display: block !important;
+    position: fixed !important;
     top: 0;
     left: 0;
-    width: 76%;
+    width: 72%;
     height: 100vh;
     z-index: 1;
-
-    padding: 70px 18px 20px;
-
-    overflow: hidden !important;
-
-    background: linear-gradient(
-      180deg,
-      #0f7a4f 0%,
-      #065f46 45%,
-      #064e3b 100%
-    );
-
-    box-shadow: none;
-  }
-
-  /* REMOVE ALL GLOW EFFECTS */
-  .mobile-drawer::before,
-  .mobile-drawer::after {
-    display: none !important;
+    background: linear-gradient(180deg, #0f7a4f, #064e3b) !important;
+    padding: 75px 18px 25px;
+    overflow-y: auto;
   }
 
   .mobile-drawer .sidebar {
     position: static !important;
     width: 100% !important;
     height: auto !important;
-
+    min-height: auto !important;
     background: transparent !important;
-
-    overflow: hidden !important;
-
     box-shadow: none !important;
-    border: none !important;
-
+    transform: none !important;
     padding: 0 !important;
   }
 
-  /* MAIN PAGE */
   .main-content {
     position: relative;
-    z-index: 10;
-
+    z-index: 5;
     margin-left: 0 !important;
     width: 100% !important;
     min-height: 100vh;
-
     background: #f4f7fc;
-
-    padding: 82px 14px 20px !important;
-
+    padding: 80px 14px 20px !important;
     overflow-x: auto;
-
     transform-origin: left center;
-
     will-change: transform;
-
     backface-visibility: hidden;
-
-    touch-action: pan-y;
-  }
-
-  /* CARDS */
-  .card,
-  .dash-card,
-  .worker-card {
-    border-radius: 20px;
-    box-shadow:
-      0 12px 35px rgba(0,0,0,0.08),
-      0 2px 8px rgba(0,0,0,0.05);
   }
 
   .dashboard-grid,
@@ -218,21 +174,5 @@ button:hover {
 
   table {
     min-width: 700px;
-  }
-
-  /* MENU ANIMATION */
-  .layout-container.menu-open .mobile-drawer .sidebar {
-    animation: sidebarReveal 0.45s ease forwards;
-  }
-
-  @keyframes sidebarReveal {
-    from {
-      opacity: 0;
-      transform: translateX(-15px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
   }
 }
