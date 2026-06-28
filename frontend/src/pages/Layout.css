@@ -203,3 +203,9 @@ button:hover {
     padding: 82px 14px 24px !important;
   }
 }
+
+@media (max-width: 768px) {
+  .main-content {
+    background: red !important;
+  }
+}
