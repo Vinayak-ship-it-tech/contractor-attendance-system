@@ -202,7 +202,7 @@
     transform: translateY(0) scaleY(1);
   }
 }
-
+/*
 @media (max-width: 768px) {
   .mobile-sidebar-layer {
     overflow-y: auto !important;
