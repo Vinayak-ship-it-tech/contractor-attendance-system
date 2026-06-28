@@ -15,7 +15,7 @@ function Layout({ children }) {
   useEffect(() => {
     const updateSize = () => {
       if (window.innerWidth <= 768) {
-        const slide = window.innerWidth * 0.86;
+        const slide = window.innerWidth * 0.92;
         setMaxSlide(slide);
         document.body.classList.add("mobile-layout-active");
       } else {
@@ -91,7 +91,7 @@ function Layout({ children }) {
   return (
     <div className={menuOpen ? "layout-container menu-open" : "layout-container"}>
       <div className="mobile-sidebar-layer">
-        <div className="mobile-sidebar-scroll">
+        <div className="mobile-sidebar-scroll mobile-sidebar-force">
           <Sidebar />
         </div>
       </div>

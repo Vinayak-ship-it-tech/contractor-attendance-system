@@ -92,137 +92,67 @@ button:hover {
 }
 
 @media (max-width: 768px) {
-  html,
-  body,
-  #root {
-    width: 100%;
-    height: 100%;
-    overflow: hidden !important;
-  }
-
-  .layout-container {
-    position: fixed !important;
-    inset: 0 !important;
-    width: 100vw !important;
-    height: 100dvh !important;
-    overflow: hidden !important;
-    background: linear-gradient(180deg, #0b1220, #064e3b) !important;
-    perspective: 1500px;
-  }
-
-  .desktop-sidebar {
-    display: none !important;
-  }
-
   .mobile-sidebar-layer {
-    display: block !important;
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 86vw !important;
-    height: 100dvh !important;
-    z-index: 1 !important;
-    overflow: hidden !important;
-    background: linear-gradient(180deg, #0b1220, #064e3b) !important;
-  }
-
-  .mobile-sidebar-scroll {
-    width: 86vw !important;
+    width: 92vw !important;
     height: 100dvh !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
-    -webkit-overflow-scrolling: touch !important;
-    padding-bottom: 40px !important;
+    z-index: 100 !important;
+    pointer-events: auto !important;
   }
 
-  .mobile-sidebar-scroll .sidebar {
-    position: static !important;
-    width: 86vw !important;
+  .mobile-sidebar-force {
+    width: 92vw !important;
+    min-height: 100dvh !important;
+    height: auto !important;
+    overflow: visible !important;
+    padding-bottom: 80px !important;
+  }
+
+  .mobile-sidebar-force .sidebar {
+    position: relative !important;
+    width: 92vw !important;
     height: auto !important;
     min-height: auto !important;
+    max-height: none !important;
     overflow: visible !important;
+    display: block !important;
     background: transparent !important;
-    border-right: none !important;
     box-shadow: none !important;
+    border: none !important;
   }
 
-  .mobile-sidebar-scroll .brand {
+  .mobile-sidebar-force .brand {
+    position: relative !important;
     height: auto !important;
-    min-height: 78px !important;
-    padding: 16px !important;
+    min-height: 75px !important;
   }
 
-  .mobile-sidebar-scroll .menu {
+  .mobile-sidebar-force .menu {
+    display: block !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding-bottom: 20px !important;
+  }
+
+  .mobile-sidebar-force .submenu {
     height: auto !important;
     max-height: none !important;
     overflow: visible !important;
-    padding: 8px 12px 10px !important;
   }
 
-  .mobile-sidebar-scroll .menu a,
-  .mobile-sidebar-scroll .menu button {
-    min-height: 38px !important;
-    font-size: 12.5px !important;
-    margin-bottom: 4px !important;
-    padding: 0 10px !important;
-  }
-
-  .mobile-sidebar-scroll .submenu {
-    margin-left: 20px !important;
-    padding-left: 8px !important;
-    margin-bottom: 6px !important;
-  }
-
-  .mobile-sidebar-scroll .submenu a {
-    min-height: 30px !important;
-    font-size: 12px !important;
-  }
-
-  .mobile-sidebar-scroll .admin-footer {
-    position: static !important;
+  .mobile-sidebar-force .admin-footer {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: auto !important;
     margin: 12px !important;
-    padding: 12px !important;
   }
 
   .main-content {
-    position: fixed !important;
-    inset: 0 !important;
     z-index: 50 !important;
-    width: 100vw !important;
-    height: 100dvh !important;
-    min-height: 100dvh !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: hidden !important;
-    background: #f4f7fc !important;
-    transform-origin: left center;
-    will-change: transform;
-    backface-visibility: hidden;
-    touch-action: pan-y;
-  }
-
-  .mobile-page-scroll {
-    width: 100% !important;
-    height: 100dvh !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    padding: 82px 14px 24px !important;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
-  }
-
-  .dashboard-grid,
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .card,
-  .dash-card,
-  .worker-card {
-    border-radius: 20px;
-  }
-
-  table {
-    min-width: 700px;
   }
 }
