@@ -432,3 +432,48 @@
     margin: 14px !important;
   }
 }
+@media (max-width: 768px) {
+  .mobile-drawer .animated-brand {
+    opacity: 0 !important;
+    transform: translateY(-35px) scale(0.8) !important;
+  }
+
+  .mobile-drawer.drawer-open .animated-brand {
+    animation: mobileBrandEnter 0.9s ease forwards !important;
+  }
+
+  .mobile-drawer.drawer-open .brand-logo-animate {
+    animation: mobileLogoPop 0.9s ease forwards !important;
+  }
+}
+
+@keyframes mobileBrandEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(-35px) scale(0.8);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translateY(5px) scale(1.05);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes mobileLogoPop {
+  0% {
+    transform: scale(0.4) rotate(-20deg);
+  }
+
+  60% {
+    transform: scale(1.25) rotate(8deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
