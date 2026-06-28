@@ -176,3 +176,27 @@ button:hover {
     min-width: 700px;
   }
 }
+
+@media (max-width: 768px) {
+  .main-content {
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .layout-container.menu-open .mobile-drawer .sidebar {
+    animation: cinematicMenuReveal 0.65s ease both;
+  }
+
+  @keyframes cinematicMenuReveal {
+    from {
+      opacity: 0.65;
+      transform: translateX(-18px) scale(0.96);
+      filter: blur(2px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      filter: blur(0);
+    }
+  }
+}
