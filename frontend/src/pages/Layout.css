@@ -114,17 +114,15 @@ button:hover {
   background: #1d4ed8;
 }
 
-/* CINEMATIC MOBILE SIDEBAR */
+/* MOBILE VIDEO STYLE */
 @media (max-width: 768px) {
   .layout-container {
     display: block !important;
     position: relative;
     min-height: 100vh;
-    background:
-      radial-gradient(circle at top left, rgba(255,255,255,0.22), transparent 32%),
-      linear-gradient(160deg, #0f7a4f, #043927 55%, #021c14) !important;
+    background: linear-gradient(180deg, #0f7a4f, #064e3b) !important;
     overflow-x: hidden;
-    perspective: 1400px;
+    perspective: 1000px;
   }
 
   .desktop-sidebar {
@@ -136,23 +134,12 @@ button:hover {
     position: fixed !important;
     top: 0;
     left: 0;
-    width: 74%;
+    width: 72%;
     height: 100vh;
     z-index: 1;
-    padding: 85px 20px 30px;
+    background: linear-gradient(180deg, #0f7a4f, #064e3b) !important;
+    padding: 75px 18px 25px;
     overflow-y: auto;
-    background:
-      linear-gradient(180deg, rgba(255,255,255,0.09), transparent 35%),
-      linear-gradient(160deg, #10b981, #064e3b 60%, #022c22) !important;
-  }
-
-  .mobile-drawer::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    width: 74%;
-    background: radial-gradient(circle at 20% 10%, rgba(255,255,255,0.22), transparent 30%);
-    pointer-events: none;
   }
 
   .mobile-drawer .sidebar {
@@ -172,31 +159,12 @@ button:hover {
     margin-left: 0 !important;
     width: 100% !important;
     min-height: 100vh;
-    background:
-      linear-gradient(180deg, rgba(255,255,255,0.92), rgba(244,247,252,0.98)),
-      #f4f7fc;
-    padding: 82px 14px 22px !important;
+    background: #f4f7fc;
+    padding: 80px 14px 20px !important;
     overflow-x: auto;
     transform-origin: left center;
     will-change: transform;
     backface-visibility: hidden;
-  }
-
-  .main-content::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: linear-gradient(90deg, rgba(0,0,0,0.18), transparent 28%);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.45s ease;
-  }
-
-  .card,
-  .dash-card,
-  .worker-card {
-    border-radius: 20px;
-    box-shadow: 0 14px 35px rgba(15, 23, 42, 0.12);
   }
 
   .dashboard-grid,
