@@ -4,6 +4,14 @@
   background: #f4f7fc;
 }
 
+.desktop-sidebar {
+  display: block;
+}
+
+.mobile-drawer {
+  display: none;
+}
+
 .main-content {
   flex: 1;
   margin-left: 285px;
@@ -106,86 +114,74 @@ button:hover {
   background: #1d4ed8;
 }
 
+/* MOBILE VIDEO STYLE */
 @media (max-width: 768px) {
+  .layout-container {
+    display: block !important;
+    position: relative;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #0f7a4f, #064e3b) !important;
+    overflow-x: hidden;
+  }
 
-  .sidebar {
-    position: fixed;
+  .desktop-sidebar {
+    display: none !important;
+  }
+
+  .mobile-drawer {
+    display: block !important;
+    position: fixed !important;
     top: 0;
-    left: -82%;
-    width: 82%;
+    left: 0;
+    width: 72%;
     height: 100vh;
-    z-index: 9999;
-
-    background: linear-gradient(160deg, #064e3b, #022c22);
-    color: white;
-
-    border-radius: 0 28px 28px 0;
-    padding: 24px 18px;
-
-    transition: left 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-    box-shadow: 15px 0 40px rgba(0, 0, 0, 0.35);
+    z-index: 1;
+    background: linear-gradient(180deg, #0f7a4f, #064e3b) !important;
+    padding: 75px 18px 25px;
     overflow-y: auto;
   }
 
-  .sidebar:hover {
-    left: 0;
-  }
-
-  .sidebar::after {
-    content: "☰";
-    position: fixed;
-    top: 22px;
-    left: 0;
-    width: 46px;
-    height: 48px;
-
-    background: #064e3b;
-    color: white;
-    border-radius: 0 18px 18px 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 24px;
-    cursor: pointer;
-
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
-    transition: left 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .sidebar:hover::after {
-    content: "×";
-    left: calc(82% - 52px);
-    background: transparent;
-    font-size: 30px;
-    box-shadow: none;
-  }
-
-  .sidebar a,
-  .sidebar button,
-  .sidebar .menu-item {
-    color: white !important;
-    border-radius: 14px;
-    transition: all 0.3s ease;
-  }
-
-  .sidebar a:hover,
-  .sidebar button:hover,
-  .sidebar .menu-item:hover {
-    background: rgba(255, 255, 255, 0.13);
-    transform: translateX(8px);
+  .mobile-drawer .sidebar {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
+    padding: 0 !important;
   }
 
   .main-content {
+    position: relative;
+    z-index: 5;
     margin-left: 0 !important;
     width: 100% !important;
-    padding: 70px 12px 12px;
-    transition: transform 0.45s ease, filter 0.45s ease;
+    min-height: 100vh;
+    background: #f4f7fc;
+    padding: 80px 14px 20px !important;
+    overflow-x: auto;
+
+    transform: translateX(0) scale(1);
+    transform-origin: left center;
+    transition:
+      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      border-radius 0.55s ease,
+      box-shadow 0.55s ease;
   }
 
-  .sidebar:hover ~ .main-content {
-    transform: translateX(18%);
-    filter: brightness(0.9);
+  .layout-container.menu-open .main-content {
+    transform: translateX(72%) scale(0.92);
+    border-radius: 32px 0 0 32px;
+    box-shadow: -22px 0 45px rgba(0,0,0,0.38);
+  }
+
+  .dashboard-grid,
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  table {
+    min-width: 700px;
   }
 }
