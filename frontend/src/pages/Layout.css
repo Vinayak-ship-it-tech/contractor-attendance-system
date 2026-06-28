@@ -336,7 +336,7 @@ button:hover {
     margin-left: 0 !important;
     width: 100% !important;
     min-height: 100vh;
-    background: #f4f7fc;
+    background: #dde0e4;
     padding: 80px 14px 20px !important;
     overflow-x: auto;
     transform-origin: left center;
@@ -354,6 +354,18 @@ button:hover {
   }
   .mobile-drawer .sidebar * {
   animation: none;
+}
+.mobile-drawer .animated-brand {
+  opacity: 0;
+  transform: translateY(-20px) scale(0.92);
+}
+
+.mobile-drawer.drawer-open .animated-brand {
+  animation: brandEnter 0.75s ease forwards;
+}
+
+.mobile-drawer.drawer-open .brand-logo-animate {
+  animation: logoPop 0.75s ease forwards;
 }
 
 .mobile-drawer.drawer-open .sidebar a,
@@ -389,6 +401,31 @@ button:hover {
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+@keyframes brandEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes logoPop {
+  0% {
+    transform: scale(0.6) rotate(-10deg);
+  }
+
+  60% {
+    transform: scale(1.15) rotate(4deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0);
   }
 }
 
