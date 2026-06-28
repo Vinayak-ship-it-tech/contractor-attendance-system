@@ -92,74 +92,83 @@ button:hover {
 }
 
 @media (max-width: 768px) {
-  body.mobile-layout-active {
-    overflow: hidden;
+  html,
+  body,
+  #root {
+    width: 100%;
+    height: 100%;
+    overflow: hidden !important;
   }
 
   .layout-container {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100dvh;
-    overflow: hidden;
-    background: linear-gradient(180deg, #073b2f, #052e25);
-    perspective: 1400px;
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    overflow: hidden !important;
+    background: #052e25 !important;
   }
 
   .desktop-sidebar {
-    display: none;
+    display: none !important;
   }
 
   .mobile-sidebar-layer {
-    display: block;
-    position: fixed;
-    inset: 0 auto 0 0;
-    width: 78vw;
-    height: 100dvh;
-    z-index: 1;
-    overflow: hidden;
-    background: linear-gradient(180deg, #0b1220, #064e3b);
+    display: block !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 78vw !important;
+    height: 100dvh !important;
+    overflow: hidden !important;
+    z-index: 1 !important;
+    transform: none !important;
+  }
+
+  .mobile-sidebar-layer .sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 78vw !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    overflow: hidden !important;
+    transform: none !important;
+    z-index: 1 !important;
+  }
+
+  .mobile-sidebar-layer .brand {
+    flex-shrink: 0 !important;
+  }
+
+  .mobile-sidebar-layer .menu {
+    flex: 1 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    max-height: calc(100dvh - 180px) !important;
+  }
+
+  .mobile-sidebar-layer .admin-footer {
+    flex-shrink: 0 !important;
   }
 
   .main-content {
-    position: fixed;
-    inset: 0;
-    z-index: 5;
-    width: 100vw;
-    height: 100dvh;
-    min-height: 100dvh;
-    margin-left: 0;
-    padding: 0;
-    overflow: hidden;
-    background: #f4f7fc;
-    transform-origin: left center;
-    will-change: transform;
-    backface-visibility: hidden;
-    touch-action: pan-y;
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    z-index: 50 !important;
+    background: #f4f7fc !important;
   }
 
   .mobile-page-scroll {
-    width: 100%;
-    height: 100dvh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 82px 14px 24px;
+    height: 100dvh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding: 82px 14px 24px !important;
     -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
-  }
-
-  .dashboard-grid,
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .card,
-  .dash-card,
-  .worker-card {
-    border-radius: 20px;
-  }
-
-  table {
-    min-width: 700px;
   }
 }
