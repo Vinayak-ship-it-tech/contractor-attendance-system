@@ -1,5 +1,9 @@
 from django.urls import path
 
+from .views import NotificationListAPIView
+from .views import NotificationReadAPIView
+from .views import NotificationUnreadCountAPIView
+
 from .views import (
     TenderListAPIView,
     TenderDetailAPIView,
@@ -26,5 +30,23 @@ urlpatterns = [
     path(
         "recommended/",
         RecommendedTenderAPIView.as_view()
+    ),
+
+    path(
+        "notifications/",
+        NotificationListAPIView.as_view(),
+        name="notification-list",
+    ),
+
+    path(
+        "notifications/<int:pk>/read/",
+        NotificationReadAPIView.as_view(),
+        name="notification-read",
+    ),
+
+    path(
+        "notifications/unread-count/",
+        NotificationUnreadCountAPIView.as_view(),
+        name="notification-unread-count",
     ),
 ]

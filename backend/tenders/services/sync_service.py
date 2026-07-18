@@ -1,5 +1,6 @@
 from tenders.api.ap_eprocurement import APEProcurementSync
 from tenders.services.repository import TenderRepository
+from tenders.models import TenderNotification
 
 
 class TenderSyncService:
@@ -33,7 +34,26 @@ class TenderSyncService:
                 break
 
             for tender in tenders:
-                repository.save(tender)
+
+                tender_obj, status = repository.save(tender)
+
+                if status == "NEW":
+
+                    TenderNotification.objects.create(
+                        tender=tender_obj,
+                        notification_type="NEW",
+                        message=f"New Tender Published: {tender_obj.title}"
+                    )
+
+                elif status == "UPDATED":
+
+                    TenderNotification.objects.create(
+                        tender=tender_obj,
+                        notification_type="UPDATED",
+                        message=f"Tender Updated: {tender_obj.title}"
+                    )
+
+                total_saved += 1
 
             total_saved += len(tenders)
 

@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Organization, Department, Tender
+from .models import TenderNotification
 
 
 @admin.register(Department)
@@ -35,4 +36,24 @@ class TenderAdmin(admin.ModelAdmin):
         "title",
         "tender_id",
         "organization",
+    )
+
+@admin.register(TenderNotification)
+class TenderNotificationAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "notification_type",
+        "tender",
+        "created_at",
+        "is_read",
+    )
+
+    list_filter = (
+        "notification_type",
+        "is_read",
+    )
+
+    search_fields = (
+        "message",
+        "tender__title",
     )

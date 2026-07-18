@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Tender, Organization, Department
+from .models import TenderNotification
 
 
 class OrganizationSerializer(serializers.ModelSerializer):
@@ -29,3 +30,35 @@ class TenderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tender
         fields = "__all__"
+
+class TenderNotificationSerializer(serializers.ModelSerializer):
+
+    tender_title = serializers.CharField(
+        source="tender.title",
+        read_only=True
+    )
+
+    organization = serializers.CharField(
+        source="tender.organization.name",
+        read_only=True
+    )
+
+    department = serializers.CharField(
+        source="tender.department.name",
+        read_only=True
+    )
+
+    class Meta:
+        model = TenderNotification
+
+        fields = [
+            "id",
+            "notification_type",
+            "message",
+            "is_read",
+            "created_at",
+            "tender",
+            "tender_title",
+            "organization",
+            "department",
+        ]

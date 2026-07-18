@@ -2,6 +2,11 @@ from django.db.models import Q
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import status
+
+
+from .models import TenderNotification
+from .serializers import TenderNotificationSerializer
 
 from .models import Tender, Organization, Department
 from .serializers import (
@@ -102,3 +107,48 @@ class RecommendedTenderAPIView(APIView):
         )
 
         return Response(recommended[:20])
+    
+class NotificationListAPIView(generics.ListAPIView):
+
+    queryset = TenderNotification.objects.select_related(
+        "tender",
+        "tender__organization",
+        "tender__department",
+    )
+
+    serializer_class = TenderNotificationSerializer
+
+class NotificationReadAPIView(APIView):
+
+    def post(self, request, pk):
+
+        try:
+            notification = TenderNotification.objects.get(pk=pk)
+
+        except TenderNotification.DoesNotExist:
+            return Response(
+                {"error": "Notification not found"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        notification.is_read = True
+        notification.save(update_fields=["is_read"])
+
+        return Response(
+            {
+                "success": True,
+                "message": "Notification marked as read."
+            }
+        )
+    
+class NotificationUnreadCountAPIView(APIView):
+
+    def get(self, request):
+
+        unread = TenderNotification.objects.filter(
+            is_read=False
+        ).count()
+
+        return Response({
+            "unread_count": unread
+        })

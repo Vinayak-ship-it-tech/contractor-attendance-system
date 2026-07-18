@@ -128,3 +128,36 @@ class Tender(models.Model):
 
     def __str__(self):
         return f"{self.tender_id} - {self.title}"
+    
+class TenderNotification(models.Model):
+
+    NOTIFICATION_TYPES = (
+        ("NEW", "New Tender"),
+        ("UPDATED", "Tender Updated"),
+        ("CORRIGENDUM", "Corrigendum"),
+        ("CLOSING_TODAY", "Closing Today"),
+        ("CLOSING_TOMORROW", "Closing Tomorrow"),
+    )
+
+    tender = models.ForeignKey(
+        Tender,
+        on_delete=models.CASCADE,
+        related_name="notifications"
+    )
+
+    notification_type = models.CharField(
+        max_length=30,
+        choices=NOTIFICATION_TYPES
+    )
+
+    message = models.TextField()
+
+    is_read = models.BooleanField(default=False)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.notification_type} - {self.tender.title}"

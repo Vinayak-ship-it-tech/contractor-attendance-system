@@ -18,33 +18,54 @@ class TenderRepository:
         )
 
         department, _ = Department.objects.get_or_create(
-            name=self.detect_department(tender["work_name"])
+            name=self.detect_department(
+                tender["work_name"]
+            )
         )
 
-        Tender.objects.update_or_create(
+        defaults = {
+            "title": tender["work_name"],
+            "notice_number": tender["notice_number"],
+            "category": tender["category"],
+            "organization": organization,
+            "department": department,
+            "district": "",
+            "tender_value": self.parse_amount(
+                tender["estimated_value"]
+            ),
+            "emd_amount": Decimal("0"),
+            "tender_fee": Decimal("0"),
+            "published_date": self.parse_date(
+                tender["start_date"]
+            ),
+            "closing_date": self.parse_date(
+                tender["closing_date"]
+            ),
+            "status": "Open",
+            "action_html": tender["action_html"],
+        }
+
+        obj, created = Tender.objects.get_or_create(
             tender_id=tender["tender_id"],
-            defaults={
-                "title": tender["work_name"],
-                "notice_number": tender["notice_number"],
-                "category": tender["category"],
-                "organization": organization,
-                "department": department,
-                "district": "",
-                "tender_value": self.parse_amount(
-                    tender["estimated_value"]
-                ),
-                "emd_amount": Decimal("0"),
-                "tender_fee": Decimal("0"),
-                "published_date": self.parse_date(
-                    tender["start_date"]
-                ),
-                "closing_date": self.parse_date(
-                    tender["closing_date"]
-                ),
-                "status": "Open",
-                "action_html": tender["action_html"],
-            }
+            defaults=defaults
         )
+
+        if created:
+            return obj, "NEW"
+
+        updated = False
+
+        for field, value in defaults.items():
+
+            if getattr(obj, field) != value:
+                setattr(obj, field, value)
+                updated = True
+
+        if updated:
+            obj.save()
+            return obj, "UPDATED"
+
+        return obj, "UNCHANGED"
 
     def parse_amount(self, value):
 
