@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { getAllTenders } from "../../services/tenderService";
+import {
+    getAllTenders,
+    getOrganizations,
+    getDepartments,
+} from "../../services/tenderService";
+import TenderTable from "../../components/Tender/TenderTable";
+import SearchBar from "../../components/Tender/SearchBar";
+import TenderFilters from "../../components/Tender/TenderFilters";
 
 export default function AllTenders() {
 
@@ -18,8 +25,13 @@ export default function AllTenders() {
     const [department, setDepartment] = useState("");
 
     useEffect(() => {
-        loadTenders();
-    }, [page, search]);
+    loadTenders();
+    }, [page, search, organization, department]);
+
+    useEffect(() => {
+    loadOrganizations();
+    loadDepartments();
+    }, []);
 
     async function loadTenders() {
 
@@ -30,6 +42,8 @@ export default function AllTenders() {
             const response = await getAllTenders({
                 page,
                 search,
+                organization,
+                department,
             });
 
             setTenders(response.data.results);
@@ -46,6 +60,38 @@ export default function AllTenders() {
         }
     }
 
+    async function loadOrganizations() {
+
+        try {
+
+            const response = await getOrganizations();
+
+            setOrganizations(response.data);
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    }
+
+    async function loadDepartments() {
+
+        try {
+
+            const response = await getDepartments();
+
+            setDepartments(response.data);
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    }
+
     return (
 
         <div className="container-fluid p-4">
@@ -54,58 +100,33 @@ export default function AllTenders() {
 
             <h5>Total Tenders : {count}</h5>
 
-            <input
-                type="text"
-                className="form-control mb-3"
-                placeholder="Search Tender..."
+            <SearchBar
+            
                 value={search}
-                onChange={(e) => {
+                placeholder="Search Tender..."
+                onChange={(value) => {
                     setPage(1);
-                    setSearch(e.target.value);
+                    setSearch(value);
+                }}
+            />
+            <TenderFilters
+                organizations={organizations}
+                departments={departments}
+                organization={organization}
+                department={department}
+                onOrganizationChange={(value) => {
+                    setPage(1);
+                    setOrganization(value);
+                }}
+                onDepartmentChange={(value) => {
+                    setPage(1);
+                    setDepartment(value);
                 }}
             />
 
             {loading && <p>Loading...</p>}
 
-            <table className="table table-bordered table-hover">
-
-                <thead>
-
-                    <tr>
-
-                        <th>ID</th>
-                        <th>Organization</th>
-                        <th>Department</th>
-                        <th>Tender</th>
-                        <th>Closing</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    {tenders.map((tender) => (
-
-                        <tr key={tender.id}>
-
-                            <td>{tender.tender_id}</td>
-
-                            <td>{tender.organization_name}</td>
-
-                            <td>{tender.department_name}</td>
-
-                            <td>{tender.title}</td>
-
-                            <td>{tender.closing_date}</td>
-
-                        </tr>
-
-                    ))}
-
-                </tbody>
-
-            </table>
+            <TenderTable tenders={tenders} />
 
             <div className="d-flex gap-3">
 
