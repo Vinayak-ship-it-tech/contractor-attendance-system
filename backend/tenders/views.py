@@ -1,18 +1,22 @@
 from django.db.models import Q
-from rest_framework import generics
+
+from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import status
+from .pagination import TenderPagination
 
+from .models import (
+    Tender,
+    Organization,
+    Department,
+    TenderNotification,
+)
 
-from .models import TenderNotification
-from .serializers import TenderNotificationSerializer
-
-from .models import Tender, Organization, Department
 from .serializers import (
     TenderSerializer,
     OrganizationSerializer,
-    DepartmentSerializer
+    DepartmentSerializer,
+    TenderNotificationSerializer,
 )
 
 
@@ -53,7 +57,12 @@ class TenderListAPIView(generics.ListAPIView):
 
 
 class TenderDetailAPIView(generics.RetrieveAPIView):
-    queryset = Tender.objects.all()
+
+    queryset = Tender.objects.select_related(
+        "organization",
+        "department"
+    )
+
     serializer_class = TenderSerializer
 
 
@@ -152,3 +161,54 @@ class NotificationUnreadCountAPIView(APIView):
         return Response({
             "unread_count": unread
         })
+    
+class TenderDashboardAPIView(APIView):
+
+    def get(self, request):
+
+        return Response({
+            "total_tenders": Tender.objects.count(),
+            "organizations": Organization.objects.count(),
+            "departments": Department.objects.count(),
+            "unread_notifications":
+                TenderNotification.objects.filter(
+                    is_read=False
+                ).count(),
+        })
+    
+class TenderListAPIView(generics.ListAPIView):
+
+    serializer_class = TenderSerializer
+    pagination_class = TenderPagination
+
+    def get_queryset(self):
+        queryset = Tender.objects.select_related(
+            "organization",
+            "department"
+        )
+
+        organization = self.request.GET.get("organization")
+        department = self.request.GET.get("department")
+        status = self.request.GET.get("status")
+        search = self.request.GET.get("search")
+
+        if organization:
+            queryset = queryset.filter(
+                organization__name__icontains=organization
+            )
+
+        if department:
+            queryset = queryset.filter(
+                department__name__icontains=department
+            )
+
+        if status:
+            queryset = queryset.filter(status=status)
+
+        if search:
+            queryset = queryset.filter(
+                Q(title__icontains=search) |
+                Q(tender_id__icontains=search)
+            )
+
+        return queryset.order_by("-published_date")

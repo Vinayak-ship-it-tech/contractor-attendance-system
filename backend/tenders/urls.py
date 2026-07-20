@@ -3,6 +3,7 @@ from django.urls import path
 from .views import NotificationListAPIView
 from .views import NotificationReadAPIView
 from .views import NotificationUnreadCountAPIView
+from .views import TenderDashboardAPIView
 
 from .views import (
     TenderListAPIView,
@@ -48,5 +49,11 @@ urlpatterns = [
         "notifications/unread-count/",
         NotificationUnreadCountAPIView.as_view(),
         name="notification-unread-count",
+    ),
+
+    path(
+        "dashboard/",
+        TenderDashboardAPIView.as_view(),
+        name="tender-dashboard",
     ),
 ]

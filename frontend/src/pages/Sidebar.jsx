@@ -16,6 +16,9 @@ import {
   FaChevronRight,
   FaWifi,
   FaSignOutAlt,
+  FaGavel,
+  FaBell,
+  FaRobot,
 } from "react-icons/fa";
 import "./Sidebar.css";
 
@@ -23,6 +26,7 @@ function Sidebar() {
   const [openAttendance, setOpenAttendance] = useState(false);
   const [openWorkPhotos, setOpenWorkPhotos] = useState(false);
   const [openSalary, setOpenSalary] = useState(false);
+  const [openTenders, setOpenTenders] = useState(false);
   const [organizations, setOrganizations] = useState([]);
   const [offlineCount, setOfflineCount] = useState(0);
 
@@ -163,6 +167,36 @@ useEffect(() => {
         <NavLink to="/bills">
           <FaFileAlt /> Bills
         </NavLink>
+
+        <button onClick={() => setOpenTenders(!openTenders)}>
+        <span>
+          <FaGavel /> Tenders
+        </span>
+
+        {openTenders ? <FaChevronDown /> : <FaChevronRight />}
+      </button>
+
+      {openTenders && (
+        <div className="submenu">
+
+          <NavLink to="/tenders">
+            All Tenders
+          </NavLink>
+
+          <NavLink to="/tenders/recommended">
+            Recommended
+          </NavLink>
+
+          <NavLink to="/tenders/notifications">
+            <FaBell /> Notifications
+          </NavLink>
+
+          <NavLink to="/tenders/ai">
+            <FaRobot /> AI Assistant
+          </NavLink>
+
+        </div>
+      )}
 
         <NavLink to="/ai-chat">
           <FaFileAlt /> AI Assistant

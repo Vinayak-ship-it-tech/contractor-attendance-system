@@ -29,7 +29,32 @@ class TenderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tender
-        fields = "__all__"
+
+        fields = [
+            "id",
+            "tender_id",
+            "title",
+            "notice_number",
+            "category",
+            "organization",
+            "organization_name",
+            "department",
+            "department_name",
+            "district",
+            "tender_value",
+            "emd_amount",
+            "tender_fee",
+            "published_date",
+            "closing_date",
+            "opening_date",
+            "status",
+            "document_url",
+            "action_html",
+            "source",
+            "last_synced",
+            "created_at",
+            "updated_at",
+        ]
 
 class TenderNotificationSerializer(serializers.ModelSerializer):
 
