@@ -46,12 +46,12 @@ import WorkerMobileApp from "./mobile/WorkerMobileApp";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import "./style.css";
 
-import AllTenders from "./pages/tenders/AllTenders/AllTenders";
-import TenderDashboard from "./pages/tenders/Dashboard/TenderDashboard";
-import Notifications from "./pages/tenders/Notifications/Notifications";
-import TenderOrganizations from "./pages/tenders/Organizations/Organizations";
-import Departments from "./pages/tenders/Departments/Departments";
-import TenderAssistant from "./pages/tenders/AIAssistant/TenderAssistant";
+import AllTenders from "./pages/tenders/AllTenders/AllTenders.jsx";
+import TenderDashboard from "./pages/tenders/Dashboard/TenderDashboard.jsx";
+import Notifications from "./pages/tenders/Notifications/Notifications.jsx";
+import TenderOrganizations from "./pages/tenders/Organizations/Organizations.jsx";
+import Departments from "./pages/tenders/Departments/Departments.jsx";
+import TenderAssistant from "./pages/tenders/AIAssistant/TenderAssistant.jsx";
 
 const Secure = ({ children }) => (
   <ProtectedRoute>{children}</ProtectedRoute>
