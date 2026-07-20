@@ -46,6 +46,13 @@ import WorkerMobileApp from "./mobile/WorkerMobileApp";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import "./style.css";
 
+import AllTenders from "./pages/tenders/AllTenders/AllTenders";
+import TenderDashboard from "./pages/tenders/Dashboard/TenderDashboard";
+import Notifications from "./pages/tenders/Notifications/Notifications";
+import TenderOrganizations from "./pages/tenders/Organizations/Organizations";
+import Departments from "./pages/tenders/Departments/Departments";
+import TenderAssistant from "./pages/tenders/AIAssistant/TenderAssistant";
+
 const Secure = ({ children }) => (
   <ProtectedRoute>{children}</ProtectedRoute>
 );
@@ -112,6 +119,59 @@ function App() {
         <Route path="/anomalies" element={<Secure><AttendanceAnomalies /></Secure>} />
         <Route path="/dashboard-analysis" element={<Secure><DashboardAnalysis /></Secure>} />
         <Route path="/offline-attendance" element={<Secure><OfflineAttendance /></Secure>} />
+       <Route
+  path="/tenders"
+  element={
+    <Secure>
+      <AllTenders />
+    </Secure>
+  }
+/>
+
+<Route
+  path="/tenders/dashboard"
+  element={
+    <Secure>
+      <TenderDashboard />
+    </Secure>
+  }
+/>
+
+<Route
+  path="/tenders/organizations"
+  element={
+    <Secure>
+      <TenderOrganizations />
+    </Secure>
+  }
+/>
+
+<Route
+  path="/tenders/departments"
+  element={
+    <Secure>
+      <Departments />
+    </Secure>
+  }
+/>
+
+<Route
+  path="/tenders/notifications"
+  element={
+    <Secure>
+      <Notifications />
+    </Secure>
+  }
+/>
+
+<Route
+  path="/tenders/ai"
+  element={
+    <Secure>
+      <TenderAssistant />
+    </Secure>
+  }
+/>
         <Route path="/worker-app" element={<WorkerMobileApp />} />
       </Routes>
     </BrowserRouter>

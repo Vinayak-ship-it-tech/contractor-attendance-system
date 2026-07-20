@@ -22,6 +22,7 @@ import {
 } from "react-icons/fa";
 import "./Sidebar.css";
 
+
 function Sidebar() {
   const [openAttendance, setOpenAttendance] = useState(false);
   const [openWorkPhotos, setOpenWorkPhotos] = useState(false);
@@ -179,12 +180,20 @@ useEffect(() => {
       {openTenders && (
         <div className="submenu">
 
+          <NavLink to="/tenders/dashboard">
+            Dashboard
+          </NavLink>
+
           <NavLink to="/tenders">
             All Tenders
           </NavLink>
 
-          <NavLink to="/tenders/recommended">
-            Recommended
+          <NavLink to="/tenders/organizations">
+            Organizations
+          </NavLink>
+
+          <NavLink to="/tenders/departments">
+            Departments
           </NavLink>
 
           <NavLink to="/tenders/notifications">
