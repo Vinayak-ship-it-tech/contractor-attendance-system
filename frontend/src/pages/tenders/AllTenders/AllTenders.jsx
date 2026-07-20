@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import {
-    getAllTenders,
-    getOrganizations,
-    getDepartments,
-} from "../../services/tenderService";
+  getAllTenders,
+  getOrganizations,
+  getDepartments,
+} from "../../../services/tenderService";
 import TenderTable from "../../components/Tender/TenderTable";
 import SearchBar from "../../components/Tender/SearchBar";
 import TenderFilters from "../../components/Tender/TenderFilters";
