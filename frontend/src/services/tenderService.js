@@ -20,3 +20,7 @@ export const getOrganizations = () =>
 
 export const getDepartments = () =>
     API.get("departments/");
+
+export const getTenders = (params = {}) => {
+  return API.get("tenders/", { params });
+};

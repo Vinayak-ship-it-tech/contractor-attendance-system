@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { getDashboard } from "../../../services/tenderService";
+import RecentTenders from "../../../components/tenders/RecentTenders.jsx";
+
 
 export default function TenderDashboard() {
   const [dashboard, setDashboard] = useState(null);

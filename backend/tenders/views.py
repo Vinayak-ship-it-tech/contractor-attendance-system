@@ -4,6 +4,7 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .pagination import TenderPagination
+from django.db.models import Count
 
 from .models import (
     Tender,
@@ -18,43 +19,6 @@ from .serializers import (
     DepartmentSerializer,
     TenderNotificationSerializer,
 )
-
-
-class TenderListAPIView(generics.ListAPIView):
-    serializer_class = TenderSerializer
-
-    def get_queryset(self):
-        queryset = Tender.objects.select_related(
-            "organization",
-            "department"
-        )
-
-        organization = self.request.GET.get("organization")
-        department = self.request.GET.get("department")
-        status = self.request.GET.get("status")
-        search = self.request.GET.get("search")
-
-        if organization:
-            queryset = queryset.filter(
-                organization__name__icontains=organization
-            )
-
-        if department:
-            queryset = queryset.filter(
-                department__name__icontains=department
-            )
-
-        if status:
-            queryset = queryset.filter(status=status)
-
-        if search:
-            queryset = queryset.filter(
-                Q(title__icontains=search) |
-                Q(tender_id__icontains=search)
-            )
-
-        return queryset.order_by("-published_date")
-
 
 class TenderDetailAPIView(generics.RetrieveAPIView):
 
@@ -166,14 +130,35 @@ class TenderDashboardAPIView(APIView):
 
     def get(self, request):
 
+        status_chart = list(
+            Tender.objects.values("status")
+            .annotate(value=Count("id"))
+            .order_by("status")
+        )
+
+        organization_chart = list(
+            Tender.objects.values("organization__name")
+            .annotate(count=Count("id"))
+            .order_by("-count")[:10]
+        )
+
+        department_chart = list(
+            Tender.objects.values("department__name")
+            .annotate(count=Count("id"))
+            .order_by("-count")[:10]
+        )
+
         return Response({
             "total_tenders": Tender.objects.count(),
             "organizations": Organization.objects.count(),
             "departments": Department.objects.count(),
-            "unread_notifications":
-                TenderNotification.objects.filter(
-                    is_read=False
-                ).count(),
+            "unread_notifications": TenderNotification.objects.filter(
+                is_read=False
+            ).count(),
+
+            "status_chart": status_chart,
+            "organization_chart": organization_chart,
+            "department_chart": department_chart,
         })
     
 class TenderListAPIView(generics.ListAPIView):

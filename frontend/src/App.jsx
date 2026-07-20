@@ -165,7 +165,7 @@ function App() {
 />
 
 <Route
-  path="/tenders/ai"
+  path="/tenders/AiAssistant"
   element={
     <Secure>
       <TenderAssistant />

@@ -24,6 +24,13 @@ export default function AllTenders() {
     const [organization, setOrganization] = useState("");
     const [department, setDepartment] = useState("");
 
+    const [filters, setFilters] = useState({
+        search: "",
+        organization: "",
+        department: "",
+        status: "",
+        });
+
     useEffect(() => {
     loadTenders();
     }, [page, search, organization, department]);
