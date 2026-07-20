@@ -4,9 +4,9 @@ import {
   getOrganizations,
   getDepartments,
 } from "../../../services/tenderService";
-import TenderTable from "../../components/Tender/TenderTable";
-import SearchBar from "../../components/Tender/SearchBar";
-import TenderFilters from "../../components/Tender/TenderFilters";
+import TenderTable from "../../../components/Tender/TenderTable";
+import SearchBar from "../../../components/Tender/SearchBar";
+import TenderFilters from "../../../components/Tender/TenderFilters";
 
 export default function AllTenders() {
 
