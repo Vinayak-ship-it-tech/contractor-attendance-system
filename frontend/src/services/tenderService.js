@@ -14,3 +14,9 @@ export const getUnreadCount = () =>
     API.get("notifications/unread-count/");
 export const markNotificationRead = (id) =>
     API.post(`notifications/${id}/read/`);
+
+export const getOrganizations = () =>
+    API.get("organizations/");
+
+export const getDepartments = () =>
+    API.get("departments/");
