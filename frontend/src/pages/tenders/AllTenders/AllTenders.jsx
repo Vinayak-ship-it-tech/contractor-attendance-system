@@ -4,9 +4,13 @@ import {
   getOrganizations,
   getDepartments,
 } from "../../../services/tenderService";
-import TenderTable from "../../../components/Tender/TenderTable";
-import SearchBar from "../../../components/Tender/SearchBar";
-import TenderFilters from "../../../components/Tender/TenderFilters";
+import TenderTable from "../../../components/tenders/TenderTable.jsx";
+import SearchBar from "../../../components/tenders/SearchBar.jsx";
+import TenderFilters from "../../../components/tenders/TenderFilters.jsx";
+import TenderCard from "../../../components/tenders/TenderCard.jsx";
+import OrganizationCard from "../../../components/tenders/OrganizationCard.jsx";
+import NotificationBadge from "../../../components/tenders/NotificationBadge.jsx";
+
 
 export default function AllTenders() {
 
