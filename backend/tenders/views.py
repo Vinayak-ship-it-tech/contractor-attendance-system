@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .pagination import TenderPagination
 from django.db.models import Count
+from rest_framework.permissions import AllowAny
 
 from .models import (
     Tender,
@@ -225,3 +226,11 @@ class TenderListAPIView(generics.ListAPIView):
             )
 
         return queryset.order_by("-published_date")
+    
+class TenderDebugAPIView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        return Response({
+            "count": Tender.objects.count()
+        })
