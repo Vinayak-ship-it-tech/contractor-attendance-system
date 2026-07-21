@@ -41,7 +41,7 @@ class Tender(models.Model):
 
     tender_id = models.CharField(max_length=100, unique=True)
 
-    title = models.CharField(max_length=500)
+    title = models.TextField()
 
     notice_number = models.TextField(
         blank=True,
