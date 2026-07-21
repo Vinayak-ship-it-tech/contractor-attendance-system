@@ -1,7 +1,7 @@
 import api from "../api";
 
 export const getAllTenders = (params = {}) => {
-    return API.get("", { params });
+    return api.get("", { params });
 };
 
 export const getDashboard = () => api.get("dashboard/");

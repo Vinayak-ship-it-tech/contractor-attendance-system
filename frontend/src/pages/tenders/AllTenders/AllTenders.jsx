@@ -34,6 +34,8 @@ export default function AllTenders() {
         status: "",
         });
 
+        
+
     useEffect(() => {
     loadTenders();
     }, [page, search, organization, department]);
@@ -55,6 +57,8 @@ export default function AllTenders() {
                 organization,
                 department,
             });
+
+            console.log("Tender API Response:", response.data);
 
             setTenders(response.data.results);
             setCount(response.data.count);
