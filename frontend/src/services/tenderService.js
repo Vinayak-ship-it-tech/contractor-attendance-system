@@ -1,25 +1,28 @@
 import api from "../api";
 
-export const getAllTenders = (params = {}) => {
-    return api.get("", { params });
-};
+export const getAllTenders = (params = {}) =>
+  api.get("tenders/", { params });
 
-export const getDashboard = () => api.get("dashboard/");
-export const getNotifications = () => api.get("notifications/");
+export const getTenders = (params = {}) =>
+  api.get("tenders/", { params });
+
+export const getDashboard = () =>
+  api.get("tenders/dashboard/");
+
+export const getNotifications = () =>
+  api.get("tenders/notifications/");
+
 export const getUnreadCount = () =>
-    api.get("notifications/unread-count/");
+  api.get("tenders/notifications/unread-count/");
+
 export const markNotificationRead = (id) =>
-    api.post(`notifications/${id}/read/`);
+  api.post(`tenders/notifications/${id}/read/`);
 
 export const getOrganizations = () =>
-    api.get("organizations/");
+  api.get("tenders/organizations/");
 
 export const getDepartments = () =>
-    api.get("departments/");
-
-export const getTenders = (params = {}) => {
-  return api.get("tenders/", { params });
-};
+  api.get("tenders/departments/");
 
 export const getRecommendedTenders = () =>
   api.get("tenders/recommended/");
