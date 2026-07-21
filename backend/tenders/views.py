@@ -126,39 +126,67 @@ class NotificationUnreadCountAPIView(APIView):
             "unread_count": unread
         })
     
+from django.db.models import Count
+from django.utils import timezone
+from datetime import timedelta
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
 class TenderDashboardAPIView(APIView):
 
     def get(self, request):
 
-        status_chart = list(
-            Tender.objects.values("status")
-            .annotate(value=Count("id"))
-            .order_by("status")
+        today = timezone.now().date()
+
+        total = Tender.objects.count()
+
+        open_count = Tender.objects.filter(
+            status__iexact="Open"
+        ).count()
+
+        closing_today = Tender.objects.filter(
+            closing_date=today
+        ).count()
+
+        organizations = Organization.objects.count()
+
+        departments = Department.objects.count()
+
+        unread_notifications = TenderNotification.objects.filter(
+            is_read=False
+        ).count()
+
+        department_stats = (
+            Department.objects
+            .annotate(total=Count("tender"))
+            .values("name", "total")
+            .order_by("-total")
         )
 
-        organization_chart = list(
-            Tender.objects.values("organization__name")
-            .annotate(count=Count("id"))
-            .order_by("-count")[:10]
+        organization_stats = (
+            Organization.objects
+            .annotate(total=Count("tender"))
+            .values("name", "total")
+            .order_by("-total")
         )
 
-        department_chart = list(
-            Tender.objects.values("department__name")
-            .annotate(count=Count("id"))
-            .order_by("-count")[:10]
-        )
+        recent_tenders = TenderSerializer(
+            Tender.objects.order_by("-published_date")[:5],
+            many=True
+        ).data
 
         return Response({
-            "total_tenders": Tender.objects.count(),
-            "organizations": Organization.objects.count(),
-            "departments": Department.objects.count(),
-            "unread_notifications": TenderNotification.objects.filter(
-                is_read=False
-            ).count(),
-
-            "status_chart": status_chart,
-            "organization_chart": organization_chart,
-            "department_chart": department_chart,
+            "summary": {
+                "total_tenders": total,
+                "open_tenders": open_count,
+                "closing_today": closing_today,
+                "organizations": organizations,
+                "departments": departments,
+                "unread_notifications": unread_notifications,
+            },
+            "department_stats": department_stats,
+            "organization_stats": organization_stats,
+            "recent_tenders": recent_tenders,
         })
     
 class TenderListAPIView(generics.ListAPIView):

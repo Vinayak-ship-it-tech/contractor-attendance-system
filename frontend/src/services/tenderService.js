@@ -1,26 +1,25 @@
-import axios from "axios";
-
-const API = axios.create({
-    baseURL: "http://127.0.0.1:8000/api/tenders/",
-});
+import api from "../api";
 
 export const getAllTenders = (params = {}) => {
     return API.get("", { params });
 };
 
-export const getDashboard = () => API.get("dashboard/");
-export const getNotifications = () => API.get("notifications/");
+export const getDashboard = () => api.get("dashboard/");
+export const getNotifications = () => api.get("notifications/");
 export const getUnreadCount = () =>
-    API.get("notifications/unread-count/");
+    api.get("notifications/unread-count/");
 export const markNotificationRead = (id) =>
-    API.post(`notifications/${id}/read/`);
+    api.post(`notifications/${id}/read/`);
 
 export const getOrganizations = () =>
-    API.get("organizations/");
+    api.get("organizations/");
 
 export const getDepartments = () =>
-    API.get("departments/");
+    api.get("departments/");
 
 export const getTenders = (params = {}) => {
-  return API.get("tenders/", { params });
+  return api.get("tenders/", { params });
 };
+
+export const getRecommendedTenders = () =>
+  api.get("tenders/recommended/");

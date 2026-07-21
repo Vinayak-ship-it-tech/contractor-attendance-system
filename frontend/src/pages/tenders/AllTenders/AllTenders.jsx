@@ -4,6 +4,9 @@ import {
   getOrganizations,
   getDepartments,
 } from "../../../services/tenderService";
+import SearchBar from "../../../components/tenders/SearchBar.jsx";
+import TenderFilters from "../../../components/tenders/TenderFilters.jsx";
+import TenderTable from "../../../components/tenders/TenderTable.jsx";
 
 
 

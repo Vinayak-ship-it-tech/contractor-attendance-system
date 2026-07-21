@@ -1,25 +1,4 @@
-import { useEffect, useState } from "react";
-import { getTenders } from "../../services/tenderService";
-
-export default function RecentTenders() {
-  const [tenders, setTenders] = useState([]);
-
-  useEffect(() => {
-    loadRecentTenders();
-  }, []);
-
-  async function loadRecentTenders() {
-    try {
-      const response = await getTenders({
-        page: 1,
-      });
-
-      // DRF pagination
-      setTenders(response.data.results || []);
-    } catch (err) {
-      console.error(err);
-    }
-  }
+export default function RecentTenders({ tenders = [] }) {
 
   return (
     <div className="card shadow-sm mt-4">
@@ -42,6 +21,15 @@ export default function RecentTenders() {
           </thead>
 
           <tbody>
+
+            {tenders.length === 0 && (
+                <tr>
+                <td colSpan="6" className="text-center">
+                No recent tenders found
+                </td>
+                </tr>
+                )}
+
             {tenders.map((tender) => (
               <tr key={tender.id}>
                 <td>{tender.tender_id}</td>
@@ -63,6 +51,8 @@ export default function RecentTenders() {
                 </td>
                 <td>{tender.closing_date}</td>
               </tr>
+
+              
             ))}
           </tbody>
 
